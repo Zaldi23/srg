@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','HomeController@home');
 Route::get('/beranda','HomeController@beranda');
 Route::get('/berandalpk','HomeController@berandalpk');
+Route::get('/komoditas','KomoditasController@komoditas');
 
