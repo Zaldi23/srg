@@ -1,19 +1,13 @@
 <?php
 
-use App\Role;
+use App\KategoriKomoditas;
 use Illuminate\Database\Seeder;
 
-class RoleSeeder extends Seeder
+class KategoriKomoditasSeeder extends Seeder
 {
     private $data = [
         [
-            'keterangan' => 'Petani'
-        ],
-        [
-            'keterangan' => 'LPK'
-        ],
-        [
-            'keterangan' => 'Pengelola Gudang'
+            'keterangan' => 'Cabai'
         ],
     ];
 
@@ -21,12 +15,12 @@ class RoleSeeder extends Seeder
     {
         collect($this->data)
             ->map(function (array $data) {
-                $role = new Role(
+                $kategori = new KategoriKomoditas(
                     [
                         'keterangan' => $data['keterangan'],
                     ]
                 );
-                $role->save();
+                $kategori->save();
             })
         ;
     }

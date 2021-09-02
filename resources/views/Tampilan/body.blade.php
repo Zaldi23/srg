@@ -3,10 +3,9 @@
 	<div class="preloader">
 		<div class="preloader-inner">
 			<div class="preloader-icon">
-<div class="spinner-grow text-success" style="width: 5rem; height: 5rem;" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div>
-
+				<div class="spinner-grow text-success" style="width: 5rem; height: 5rem;" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -24,7 +23,6 @@
 						<div class="top-left">
 							<ul class="list-main">
 								<li><i class="ti-time"></i>Selasa, 31 Agustus 2021 - 20:30 WIB</li>
-								
 							</ul>
 						</div>
                        
@@ -34,10 +32,10 @@
 						<!-- Top Right -->
 						<div class="right-content">
                              <ul class="list-inline pull-right col-xs-12 col-md-12 col-sm-12 col-lg-12">
-              <li class="hidden-xs col-xs-12 col-md-12 col-sm-12 col-lg-12">
-                  <marquee style="padding-top: 4px; color: rgb(32, 158, 21);">Selamat Datang di Aplikasi SRG (Sistem Resi Gudang) - Dinas Perindustrian dan Perdagangan Kabupaten Kebumen</marquee>
-              </li>
-            </ul>
+								<li class="hidden-xs col-xs-12 col-md-12 col-sm-12 col-lg-12">
+									<marquee style="padding-top: 4px; color: rgb(32, 158, 21);">Selamat Datang di Aplikasi SRG (Sistem Resi Gudang) - Dinas Perindustrian dan Perdagangan Kabupaten Kebumen</marquee>
+								</li>
+							</ul>
             
 						</div>
 						<!-- End Top Right -->

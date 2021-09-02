@@ -23,7 +23,7 @@ class CreateKomoditasTable extends Migration
             $table->unsignedBigInteger('kategori_komoditas_id');
             $table->foreign('kategori_komoditas_id')->references('id')->on('kategori_komoditas');
             
-            $table->unsignedBigInteger('gudang_id');
+            $table->unsignedBigInteger('gudang_id')->nullable();
             $table->foreign('gudang_id')->references('id')->on('gudangs');
             $table->timestamps();
         });

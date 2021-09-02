@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','HomeController@home');
 Route::get('/beranda','HomeController@beranda');
 Route::get('/berandalpk','HomeController@berandalpk');
-Route::get('/komoditas','KomoditasController@komoditas');
 
-Route::resource('komoditas', KomoditasController::class);
+Route::resource('komoditas', '\App\Http\Controllers\KomoditasController');
+Route::get('komoditas/get-detail-kategori/{id}', [KomoditasController::class, 'getDetailKategoriKomoditas']);
 

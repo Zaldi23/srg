@@ -15,6 +15,7 @@ class CreateGudangsTable extends Migration
     {
         Schema::create('gudangs', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_gudang');
             $table->integer('kuota');
             $table->unsignedBigInteger('desa_id');
             $table->foreign('desa_id')->references('id')->on('desas');

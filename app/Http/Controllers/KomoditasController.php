@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\KategoriKomoditas;
+use App\KategoriKomoditasDetail;
 use App\Komoditas;
 use Illuminate\Http\Request;
 
 class KomoditasController extends Controller
 {
+    public function getDetailKategoriKomoditas($id)
+    {
+        return json_encode(
+            KategoriKomoditasDetail::where('kategori_komoditas_id',$id)->get()
+        );
+    }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-     public function komoditas(){
-        return view ('komoditas');
+     public function index(){
+        
     }
 
     /**
@@ -23,7 +32,10 @@ class KomoditasController extends Controller
      */
     public function create()
     {
-        //
+        $kategori = KategoriKomoditas::all();
+        return view ('komoditas.create', compact(
+            'kategori'
+        ));
     }
 
     /**

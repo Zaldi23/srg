@@ -33,7 +33,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
     <!-- Main content -->
-   @include('komoditas/tampilan.form')
+   @yield('form')
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
