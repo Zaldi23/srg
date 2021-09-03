@@ -35,7 +35,7 @@ class KomoditasController extends Controller
     public function create()
     {
         $kategori = KategoriKomoditas::all();
-        return view ('komoditas.create', compact(
+        return view('user.komoditas.create', compact(
             'kategori'
         ));
     }

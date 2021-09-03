@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             KategoriKomoditasSeeder::class,
             KategoriKomoditasDetailSeeder::class,
             GudangSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

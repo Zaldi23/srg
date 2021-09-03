@@ -1,4 +1,9 @@
-@extends('master')
+@extends('user.partials.master')
+
+@section('title')
+    Komoditas
+@endsection
+
 @section('form')
     <section class="content">
         <div class="container-fluid">
@@ -8,7 +13,7 @@
                     <!-- jquery validation -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Daftar Komoditas</h3>
+                            <h3 class="card-title">Ajukan Komoditas</h3>
                         </div>
                         <!-- /.card-header -->
 

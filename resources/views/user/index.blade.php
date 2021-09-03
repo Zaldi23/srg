@@ -25,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Komoditas</h1>
+            <h1 class="m-0">Dashboard Pengolahan Gudang</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -33,9 +33,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
     <!-- Main content -->
-   @yield('form')
+   @include('Template.conten')
     <!-- /.content -->
-  </div>
+  </div></div>
   <!-- /.content-wrapper -->
 
   <!-- Main Footer -->
