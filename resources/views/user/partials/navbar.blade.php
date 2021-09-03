@@ -54,9 +54,12 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-header">Sigit Rizaldi</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-sign-out-alt mr-2"></i> Keluar
-          </a>
+          <form action="{{route('auth.logout')}}" method="POST">
+            @csrf
+            <button type="submit" class="dropdown-item">
+              <i class="fas fa-sign-out-alt mr-2"></i> Keluar
+            </button>
+          </form>
       </li>
     </ul>
   </nav>

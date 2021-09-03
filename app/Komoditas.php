@@ -13,9 +13,9 @@ class Komoditas extends Model
         return $this->belongsTo(UserInfo::class);
     }
 
-    public function kategori_komoditas()
+    public function kategori_komoditas_detail()
     {
-        return $this->belongsTo(KategoriKomoditas::class);
+        return $this->belongsTo(KategoriKomoditasDetail::class);
     }
 
     public function gudang()

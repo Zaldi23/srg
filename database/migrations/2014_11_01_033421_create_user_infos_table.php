@@ -20,6 +20,7 @@ class CreateUserInfosTable extends Migration
             $table->string('nama');
             $table->unsignedBigInteger('desa_id');
             $table->foreign('desa_id')->references('id')->on('desas');
+            $table->double('luas_lahan');
             $table->timestamps();
         });
     }

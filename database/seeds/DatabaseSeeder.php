@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             GudangSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            UserInfoSeeder::class,
         ]);
     }
 }

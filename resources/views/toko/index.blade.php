@@ -100,7 +100,7 @@
 								<!--/ End Shopping Item -->
 							</div>
                             <div class="sinlge-bar shopping">
-								<a href="#" class="single-icon">MASUK </a>
+								<a href="{{route('login')}}" class="single-icon">MASUK </a>
 								<!-- Shopping Item -->
 								
 								<!--/ End Shopping Item -->

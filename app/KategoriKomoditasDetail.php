@@ -12,4 +12,9 @@ class KategoriKomoditasDetail extends Model
     {
         return $this->belongsTo(KategoriKomoditas::class);
     }
+
+    public function komoditas()
+    {
+        return $this->hasMany(Komoditas::class);
+    }
 }

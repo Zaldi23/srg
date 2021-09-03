@@ -19,18 +19,18 @@ class AuthController extends Controller
                 'email' => 'required',
             ],
             [
-                'email.ends_with' => 'Email tidak valid.',
+                'email.required' => 'Email / Username tidak valid.',
             ]
         );
-        
-        $credentials = $request->only('email', 'password');
 
+        $credentials = $request->only('email', 'password');
+        
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('welcome');
+            return redirect()->route('beranda');
         }
         else{
-            return redirect()->back()->with('gagal','Ooops, email atau password salah');
+            return redirect()->back()->with('alert','Ooops, email atau password salah');
         }
     }
 

@@ -15,6 +15,20 @@ class UserSeeder extends Seeder
             'password' => 'janganlupa',
             'role' => 3,
         ],
+        [
+            'name' => 'irfan',
+            'username' => 'irfan',
+            'email' => 'irfan@gmail.com',
+            'password' => 'janganlupa',
+            'role' => 1,
+        ],
+        [
+            'name' => 'agus',
+            'username' => 'agus',
+            'email' => 'agus@gmail.com',
+            'password' => 'janganlupa',
+            'role' => 1,
+        ],
     ];
 
     public function run()

@@ -20,9 +20,11 @@ class CreateKomoditasTable extends Migration
             $table->decimal('harga_harapan',15,2);
             $table->double('kuantitas');
 
-            $table->unsignedBigInteger('kategori_komoditas_id');
-            $table->foreign('kategori_komoditas_id')->references('id')->on('kategori_komoditas');
-            
+            $table->unsignedBigInteger('kategori_komoditas_detail_id');
+            $table->foreign('kategori_komoditas_detail_id')->references('id')->on('kategori_komoditas_details');
+
+            $table->decimal('harga_jual',15,2)->nullable();
+            $table->integer('status')->default(1);
             $table->unsignedBigInteger('gudang_id')->nullable();
             $table->foreign('gudang_id')->references('id')->on('gudangs');
             $table->timestamps();
