@@ -20,4 +20,5 @@ Route::get('/berandalpk','HomeController@berandalpk');
 
 Route::resource('komoditas', '\App\Http\Controllers\KomoditasController');
 Route::get('komoditas/get-detail-kategori/{id}', [KomoditasController::class, 'getDetailKategoriKomoditas']);
+Route::get('/pengelola','KomoditasController@pengelola');
 

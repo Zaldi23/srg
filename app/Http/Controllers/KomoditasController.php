@@ -21,8 +21,10 @@ class KomoditasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index(){
-        
+     public function pengelola()
+     {
+        return view ('pengelola');
+    
     }
 
     /**
