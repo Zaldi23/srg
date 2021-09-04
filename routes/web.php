@@ -15,18 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function ()
-{
+Route::get('/', function () {
     return view('toko.index');
 });
 
-Route::get('/berandalpk','HomeController@berandalpk');
+Route::get('/berandalpk', 'HomeController@berandalpk');
 
 Route::get('login', [AuthController::class, 'show_login_form'])->name('login');
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::get('beranda',[HomeController::class, 'beranda'])->name('beranda');
+Route::get('beranda', [HomeController::class, 'beranda'])->name('beranda');
 
 Route::resource('komoditas', KomoditasController::class);
 Route::get('komoditas/get-detail-kategori/{id}', 'KomoditasController@getDetailKategoriKomoditas');
