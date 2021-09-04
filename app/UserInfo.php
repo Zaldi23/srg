@@ -13,6 +13,21 @@ class UserInfo extends Model
         return $this->hasMany(Komoditas::class);
     }
 
+    public function komoditas_disetujui()
+    {
+        return $this->komoditas()->where('status',3);
+    }
+
+    public function komoditas_menunggu()
+    {
+        return $this->komoditas()->where('status',2);
+    }
+
+    public function komoditas_diajukan()
+    {
+        return $this->komoditas()->where('status',1);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

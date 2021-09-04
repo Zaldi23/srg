@@ -24,7 +24,8 @@ class KomoditasController extends Controller
      */
     public function index()
     {
-        $komoditas = Auth::user()->user_info->komoditas;
+        $komoditas = Auth::user()->user_info->komoditas_disetujui;
+        dd($komoditas);
         return view('user.komoditas.index', compact(
             'komoditas'
         )); 
@@ -76,10 +77,10 @@ class KomoditasController extends Controller
         $saved = $komoditas->save();
 
         if ($saved) {
-            return "tersimpan";
+            return redirect()->route('komoditas.index')->with('alert','Pengajuan Komoditas '.$detailKomoditas->keterangan.' berhasil');
         }
 
-        return "gagal";
+        return redirect()->route('komoditas.index')->with('alert','Pengajuan Komoditas '.$detailKomoditas->keterangan.' gagal');
     }
 
     /**

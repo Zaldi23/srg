@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         switch (Auth::user()->role_id) {
             case 1: //PETANI
-                return redirect()->route('komoditas.create');
+                return view('user.index');
                 break;
             case 2: //LPK
                 # code...
