@@ -30,8 +30,4 @@ Route::get('beranda',[HomeController::class, 'beranda'])->name('beranda');
 
 Route::resource('komoditas', KomoditasController::class);
 Route::get('komoditas/get-detail-kategori/{id}', 'KomoditasController@getDetailKategoriKomoditas');
-Route::get('komoditas/status', function () {
-    return redirect()->route('beranda');
-});
-Route::get('komoditas/status/{status}', 'KomoditasController@byStatus')->name('komoditas.status');
-
+Route::get('json-komoditas', 'KomoditasController@jsonKomoditas')->name('json.komoditas');

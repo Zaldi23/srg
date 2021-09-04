@@ -39,7 +39,7 @@
                                 <div class="icon">
                                     <i class="fa fa-user"></i>
                                 </div>
-                                <a href="{{route('komoditas.status',Crypt::encrypt('wait'))}}" class="small-box-footer">
+                                <a href="" class="small-box-footer">
                                     Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -58,7 +58,7 @@
                                 <div class="icon">
                                     <i class="fa fa-map"></i>
                                 </div>
-                                <a href="{{route('komoditas.status',Crypt::encrypt('acc'))}}" class="small-box-footer">
+                                <a href="" class="small-box-footer">
                                     Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>

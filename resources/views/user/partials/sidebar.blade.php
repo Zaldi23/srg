@@ -15,7 +15,7 @@
                 <img src="{{asset('Gambar/user.jpg')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">
+                <a href="{{route('beranda')}}" class="d-block">
                     {{ucwords(Auth::user()->name)}}
                 </a>
             </div>
@@ -24,15 +24,20 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p>
-                        Beranda
-                        {{-- <span class="right badge badge-danger">New</span> --}}
-                    </p>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Beranda
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('komoditas.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Komoditas
+                        </p>
                     </a>
                 </li>
             </ul>

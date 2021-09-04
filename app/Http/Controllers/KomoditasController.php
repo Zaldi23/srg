@@ -7,9 +7,25 @@ use App\KategoriKomoditasDetail;
 use App\Komoditas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Yajra\DataTables\DataTables;
 
 class KomoditasController extends Controller
 {
+    public function jsonKomoditas()
+    {
+        return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info'))
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $id = Crypt::encrypt($row->id);
+                        $action = '
+                            <a  class="btn btn-xs btn-secondary" href="komoditas/'.$id.'/edit">Edit</a>
+                        ';
+                        return $action; 
+                        })
+                    ->make(true);
+    }
+
     public function getDetailKategoriKomoditas($id)
     {
         return json_encode(
@@ -24,11 +40,23 @@ class KomoditasController extends Controller
      */
     public function index()
     {
-        $komoditas = Auth::user()->user_info->komoditas_disetujui;
-        dd($komoditas);
-        return view('user.komoditas.index', compact(
-            'komoditas'
-        )); 
+        switch (Auth::user()->role_id) {
+            case 1:
+                return view('user.komoditas.index');
+                break;
+            case 2:
+                return view('user.komoditas.index');
+                break;
+            case 3:
+                return view('user.komoditas.index');
+                break;
+            default:
+                Auth::logout();
+                return redirect()->route('login');
+                break;
+        }
+        // $komoditas = Auth::user()->user_info->komoditas_disetujui;
+        // dd($komoditas); 
     }
 
     /**
@@ -100,9 +128,14 @@ class KomoditasController extends Controller
      * @param  \App\Komoditas  $Komoditas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Komoditas $Komoditas)
+    public function edit($id)
     {
-        //
+        $komoditas = Komoditas::findOrFail($id);
+        $kategori = KategoriKomoditas::all();
+        return view('user.komoditas.edit', compact(
+            'komoditas',
+            'kategori',
+        ));
     }
 
     /**
