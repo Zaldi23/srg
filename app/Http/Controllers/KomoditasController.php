@@ -95,15 +95,42 @@ class KomoditasController extends Controller
                 # code...
                 break;
             case 3:                         //PENGELOLA GUDANG
-                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('status'))
+                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info'))
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                         $id = $row->id;
-                        $action = '
-                            <a  class="btn btn-xs btn-secondary" href="komoditas/'.$id.'/edit">Edit</a>
-                        ';
+
+                        if ($row->status_pengajuan == 1) {
+                            $action = '
+                                <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
+                                <a class="btn btn-xs btn-danger hapus" id="'.$id.'">Hapus</a>
+                            ';
+                        } elseif($row->status_pengajuan == 2) {
+                            $action = '
+                                <a class="btn btn-xs btn-secondary" href="komoditas/'.$id.'">Detail</a>
+                            ';
+                        }elseif($row->status_pengajuan == 3){
+                            if ($row->status_uji_kualitas == 2) {
+                                $action = '
+                                    <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
+                                    <a class="btn btn-xs btn-dark" href="komoditas/cetak-surat-mutu/'.$id.'">Cetak</a>
+                                ';
+                            }else{
+                                $action = '
+                                    <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
+                                ';
+                            }
+                        }else{
+                            $action = '
+                                <a class="btn btn-xs btn-danger hapus" id="'.$id.'>Hapus</a>
+                            ';
+                        }
+                        
                         return $action; 
-                        })
+                    })
+                    ->rawColumns([
+                        'action'
+                    ])
                     ->make(true);
                 break;
             default:
