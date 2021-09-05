@@ -215,7 +215,11 @@ class KomoditasController extends Controller
 
     public function show($id)
     {
-        //
+        $komoditas = Komoditas::findOrFail($id);
+
+        return view('user.komoditas.show',compact(
+            'komoditas'
+        ));
     }
 
     public function edit($id)
@@ -275,5 +279,10 @@ class KomoditasController extends Controller
         }
 
         return redirect()->route('komoditas.index')->with('alert','Hapus pengajuan komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' gagal');
+    }
+
+    public function penggudangan(Request $request)
+    {
+        dd($request);
     }
 }

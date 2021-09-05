@@ -10,7 +10,7 @@ class GudangSeeder extends Seeder
         [
             'nama_gudang' => 'Maju Jaya',
             'kuota' => 100,
-            'nama_desa' => 'Winong',
+            'nama_desa' => 'Mirit',
         ],
     ];
 

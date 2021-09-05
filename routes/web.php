@@ -28,6 +28,8 @@ Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout
 Route::get('beranda', [HomeController::class, 'beranda'])->name('beranda');
 
 Route::resource('komoditas', KomoditasController::class);
+Route::post('komoditas-penggudangan', 'KomoditasController@penggudangan')->name('komoditas.penggudangan');
 Route::get('komoditas/get-detail-kategori/{id}', 'KomoditasController@getDetailKategoriKomoditas');
 Route::get('json-komoditas', 'KomoditasController@jsonKomoditas')->name('json.komoditas');
 Route::get('json-komoditas/{id}', 'KomoditasController@getKomoditasById');
+Route::get('gudang-desa/{desa_id}', 'GudangController@getGudangByDesa')->name('gudang.desa');

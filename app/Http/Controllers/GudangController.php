@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 
 class GudangController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getGudangByDesa($desaId)
+    {
+        return json_encode(
+            Gudang::where('desa_id',$desaId)->get()
+        );
+    }
+
     public function index()
     {
         //
