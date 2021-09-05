@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             KategoriKomoditasDetailSeeder::class,
             GudangSeeder::class,
             RoleSeeder::class,
+            KelompokTaniSeeder::class,
             UserSeeder::class,
             UserInfoSeeder::class,
         ]);

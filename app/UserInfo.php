@@ -15,17 +15,17 @@ class UserInfo extends Model
 
     public function komoditas_disetujui()
     {
-        return $this->komoditas()->where('status',3);
+        return $this->komoditas()->where('status_pengajuan',3);
     }
 
     public function komoditas_menunggu()
     {
-        return $this->komoditas()->where('status',2);
+        return $this->komoditas()->where('status_pengajuan',2);
     }
 
     public function komoditas_diajukan()
     {
-        return $this->komoditas()->where('status',1);
+        return $this->komoditas()->where('status_pengajuan',1);
     }
 
     public function user()
@@ -36,5 +36,10 @@ class UserInfo extends Model
     public function desa()
     {
         return $this->belongsTo(Desa::class);
+    }
+
+    public function kelompok_tani()
+    {
+        return $this->belongsTo(KelompokTani::class);
     }
 }

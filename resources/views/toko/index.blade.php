@@ -51,54 +51,17 @@
 		<div class="middle-inner">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-2 col-md-2 col-12">
+					<div class="col-lg-6 col-md-2 col-12">
 						<!-- Logo -->
 						<div class="logo">
-							<a href="index.html"><img src="{{asset('/Toko/images/logo.png')}}" alt="logo"></a>
+							<a href="index.html"><img src="{{asset('toko/images/logo.png')}}" alt="logo"></a>
 						</div>
 						<!--/ End Logo -->
-						<!-- Search Form -->
-						
-						<!--/ End Search Form -->
 						<div class="mobile-nav"></div>
 					</div>
 					
-					<div class="col-lg-2 col-md-3 col-12">
+					<div class="col-lg-6 col-md-3 col-12">
 						<div class="right-bar">
-							<!-- Search Form -->
-							
-							<div class="sinlge-bar shopping">
-								<a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
-								<!-- Shopping Item -->
-								<div class="shopping-item">
-									<div class="dropdown-cart-header">
-										<span>2 Items</span>
-										<a href="#">View Cart</a>
-									</div>
-									<ul class="shopping-list">
-										<li>
-											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-											<h4><a href="#">Woman Ring</a></h4>
-											<p class="quantity">1x - <span class="amount">$99.00</span></p>
-										</li>
-										<li>
-											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-											<h4><a href="#">Woman Necklace</a></h4>
-											<p class="quantity">1x - <span class="amount">$35.00</span></p>
-										</li>
-									</ul>
-									<div class="bottom">
-										<div class="total">
-											<span>Total</span>
-											<span class="total-amount">$134.00</span>
-										</div>
-										<a href="checkout.html" class="btn animate">Checkout</a>
-									</div>
-								</div>
-								<!--/ End Shopping Item -->
-							</div>
                             <div class="sinlge-bar shopping">
 								<a href="{{route('login')}}" class="single-icon">MASUK </a>
 								<!-- Shopping Item -->
@@ -157,13 +120,13 @@
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{asset('/Toko/images/banner1.png')}}" class="d-block w-100" alt="...">
+                    <img src="{{asset('toko/images/banner1.png')}}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('/Toko/images/banner2.png')}}" class="d-block w-100" alt="...">
+                    <img src="{{asset('toko/images/banner2.png')}}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('/Toko/images/banner3.png')}}" class="d-block w-100" alt="...">
+                    <img src="{{asset('toko/images/banner3.png')}}" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -222,8 +185,8 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a href="product-details.html">
-                                                        <img class="default-img" src="{{asset('/Toko/images/produk1.png')}}" alt="#">
-                                                        <img class="hover-img" src="{{asset('/Toko/images/produk1.png')}}" alt="#">
+                                                        <img class="default-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
+                                                        <img class="hover-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
                                                     </a>
                                                     <div class="button-head">
                                                         <div class="product-action">
@@ -248,8 +211,8 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a href="product-details.html">
-                                                        <img class="default-img" src="{{asset('/Toko/images/produk2.png')}}" alt="#">
-                                                        <img class="hover-img" src="{{asset('/Toko/images/produk2.png')}}" alt="#">
+                                                        <img class="default-img" src="{{asset('toko/images/produk2.png')}}" alt="#">
+                                                        <img class="hover-img" src="{{asset('toko/images/produk2.png')}}" alt="#">
                                                     </a>
                                                     <div class="button-head">
                                                         <div class="product-action">
@@ -274,8 +237,8 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a href="product-details.html">
-                                                        <img class="default-img" src="{{asset('/Toko/images/produk3.png')}}" alt="#">
-                                                        <img class="hover-img" src="{{asset('/Toko/images/produk3.png')}}" alt="#">
+                                                        <img class="default-img" src="{{asset('toko/images/produk3.png')}}" alt="#">
+                                                        <img class="hover-img" src="{{asset('toko/images/produk3.png')}}" alt="#">
                                                     </a>
                                                     <div class="button-head">
                                                         <div class="product-action">
@@ -300,8 +263,8 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a href="product-details.html">
-                                                        <img class="default-img" src="{{asset('/Toko/images/produk2.png')}}" alt="#">
-                                                        <img class="hover-img" src="{{asset('/Toko/images/produk2.png')}}" alt="#">
+                                                        <img class="default-img" src="{{asset('toko/images/produk2.png')}}" alt="#">
+                                                        <img class="hover-img" src="{{asset('toko/images/produk2.png')}}" alt="#">
                                                 
                                                     </a>
                                                     <div class="button-head">
@@ -327,8 +290,8 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a href="product-details.html">
-                                                        <img class="default-img" src="{{asset('/Toko/images/produk1.png')}}" alt="#">
-                                                        <img class="hover-img" src="{{asset('/Toko/images/produk1.png')}}" alt="#">
+                                                        <img class="default-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
+                                                        <img class="hover-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
                                                     </a>
                                                     <div class="button-head">
                                                         <div class="product-action">
@@ -353,8 +316,8 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a href="product-details.html">
-                                                        <img class="default-img" src="{{asset('/Toko/images/produk2.png')}}" alt="#">
-                                                        <img class="hover-img" src="{{asset('/Toko/images/produk2.png')}}" alt="#">
+                                                        <img class="default-img" src="{{asset('toko/images/produk2.png')}}" alt="#">
+                                                        <img class="hover-img" src="{{asset('toko/images/produk2.png')}}" alt="#">
                                     
                                                     </a>
                                                     <div class="button-head">
@@ -380,8 +343,8 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a href="product-details.html">
-                                                        <img class="default-img" src="{{asset('/Toko/images/produk3.png')}}" alt="#">
-                                                        <img class="hover-img" src="{{asset('/Toko/images/produk3.png')}}" alt="#">
+                                                        <img class="default-img" src="{{asset('toko/images/produk3.png')}}" alt="#">
+                                                        <img class="hover-img" src="{{asset('toko/images/produk3.png')}}" alt="#">
                                                     </a>
                                                     <div class="button-head">
                                                         <div class="product-action">
@@ -406,8 +369,8 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a href="product-details.html">
-                                                        <img class="default-img" src="{{asset('/Toko/images/produk1.png')}}" alt="#">
-                                                        <img class="hover-img" src="{{asset('/Toko/images/produk1.png')}}" alt="#">
+                                                        <img class="default-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
+                                                        <img class="hover-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
                                                         
                                                     </a>
                                                     <div class="button-head">
@@ -1565,7 +1528,7 @@
 				<div class="col-lg-4 col-md-6 col-12">
 					<!-- Start Single Blog  -->
 					<div class="shop-single-blog">
-						<img src="{{asset('/Toko/images/gambar1.png')}}" alt="#">
+						<img src="{{asset('toko/images/gambar1.png')}}" alt="#">
 						<div class="content">
 							<p class="date">Selasa, 31 Agustus 2021</p>
 							<a href="#" class="title">Panen Cabai Merah Melimpah</a>
@@ -1577,7 +1540,7 @@
 				<div class="col-lg-4 col-md-6 col-12">
 					<!-- Start Single Blog  -->
 					<div class="shop-single-blog">
-						<img src="{{asset('/Toko/images/gambar2.png')}}" alt="#">
+						<img src="{{asset('toko/images/gambar2.png')}}" alt="#">
 						<div class="content">
 							<p class="date">Rabu, 1 September 2021</p>
 							<a href="#" class="title">Kisah Sukses Petani Cabai</a>
@@ -1589,7 +1552,7 @@
 				<div class="col-lg-4 col-md-6 col-12">
 					<!-- Start Single Blog  -->
 					<div class="shop-single-blog">
-						<img src="{{asset('/Toko/images/gambar3.png')}}" alt="#">
+						<img src="{{asset('toko/images/gambar3.png')}}" alt="#">
 						<div class="content">
 							<p class="date">Kamis, 2 September 2021</p>
 							<a href="#" class="title">Cara Budidaya Cabai</a>
@@ -1602,51 +1565,6 @@
 		</div>
 	</section>
 	<!-- End Shop Blog  -->
-	
-	<!-- Start Shop Services Area -->
-	<section class="shop-services section home">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6 col-12">
-					<!-- Start Single Service -->
-					<div class="single-service">
-						<i class="ti-rocket"></i>
-						<h4>Free shiping</h4>
-						<p>Orders over $100</p>
-					</div>
-					<!-- End Single Service -->
-				</div>
-				<div class="col-lg-3 col-md-6 col-12">
-					<!-- Start Single Service -->
-					<div class="single-service">
-						<i class="ti-reload"></i>
-						<h4>Free Return</h4>
-						<p>Within 30 days returns</p>
-					</div>
-					<!-- End Single Service -->
-				</div>
-				<div class="col-lg-3 col-md-6 col-12">
-					<!-- Start Single Service -->
-					<div class="single-service">
-						<i class="ti-lock"></i>
-						<h4>Sucure Payment</h4>
-						<p>100% secure payment</p>
-					</div>
-					<!-- End Single Service -->
-				</div>
-				<div class="col-lg-3 col-md-6 col-12">
-					<!-- Start Single Service -->
-					<div class="single-service">
-						<i class="ti-tag"></i>
-						<h4>Best Peice</h4>
-						<p>Guaranteed price</p>
-					</div>
-					<!-- End Single Service -->
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Shop Services Area -->
 	
 	<!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">

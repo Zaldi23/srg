@@ -18,7 +18,7 @@
                         <!-- /.card-header -->
 
                         <!-- form start -->
-                        <form id="quickForm" method="POST" action="{{route('komoditas.store')}}">
+                        <form id="quickForm" method="POST" action="{{route('komoditas.update',$komoditas->id)}}">
                             @method('PUT')
                             @csrf
                             <div class="card-body">

@@ -7,23 +7,110 @@ use App\KategoriKomoditasDetail;
 use App\Komoditas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\DataTables;
 
 class KomoditasController extends Controller
 {
     public function jsonKomoditas()
     {
-        return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info'))
+        switch (Auth::user()->role_id) {
+            case 1:                         //PETANI
+                $user_info_id = Auth::user()->user_info->id;
+
+                return DataTables::of(Komoditas::where('user_info_id',$user_info_id)->with('kategori_komoditas_detail')->get())
+                    ->addIndexColumn()
+                    ->addColumn('status_pengajuan', function($row){
+                        switch ($row->status_pengajuan) {
+                            case 1:
+                                $action = '<a class="btn btn-xs btn-secondary" href="#">Belum diperiksa</a>';
+                                break;
+                            case 2:
+                                $action = '<a class="btn btn-xs btn-warning" href="#">Menunggu</a>';
+                                break;
+                            case 3:
+                                $action = '<a class="btn btn-xs btn-success" href="#">Disetujui</a>';
+                                break;
+                            
+                            default:
+                                $action = '<a class="btn btn-xs btn-danger" href="#">Undefined</a>';
+                                break;
+                        }
+                        
+                        return $action;
+                    })
+                    ->addColumn('status_uji_kualitas', function($row){
+                        switch ($row->status_uji_kualitas) {
+                            case 1:
+                                $action = '<a class="btn btn-xs btn-secondary" href="#">Belum diperiksa</a>';
+                                break;
+                            case 2:
+                                $action = '<a class="btn btn-xs btn-info" href="#">Disetujui</a>';
+                                break;
+                            
+                            default:
+                                $action = '<a class="btn btn-xs btn-danger" href="#">Undefined</a>';
+                                break;
+                        }
+                        
+                        return $action;
+                    })
+                    ->addColumn('action', function($row){
+                        $id = $row->id;
+
+                        if ($row->status_pengajuan == 1) {
+                            $action = '
+                                <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
+                                <a class="btn btn-xs btn-secondary" href="komoditas/'.$id.'/edit">Edit</a>
+                                <a class="btn btn-xs btn-danger" href="komoditas/'.$id.'/hapus">Hapus</a>
+                            ';
+                        } elseif($row->status_pengajuan == 2) {
+                            $action = '
+                                <a class="btn btn-xs btn-secondary" href="komoditas/'.$id.'">Detail</a>
+                            ';
+                        }elseif($row->status_pengajuan == 3){
+                            if ($row->status_uji_kualitas == 2) {
+                                $action = '
+                                    <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
+                                    <a class="btn btn-xs btn-dark" href="komoditas/cetak-surat-mutu/'.$id.'">Cetak</a>
+                                ';
+                            }else{
+                                $action = '
+                                    <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
+                                ';
+                            }
+                        }else{
+                            $action = '
+                                <a class="btn btn-xs btn-danger" href="komoditas/'.$id.'/hapus">Hapus</a>
+                            ';
+                        }
+                        
+                        return $action; 
+                    })
+                    ->rawColumns([
+                        'action','status_pengajuan','status_uji_kualitas'
+                    ])
+                    ->make(true);
+                break;
+            case 2:                         //LPK
+                # code...
+                break;
+            case 3:                         //PENGELOLA GUDANG
+                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('status'))
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                        $id = Crypt::encrypt($row->id);
+                        $id = $row->id;
                         $action = '
                             <a  class="btn btn-xs btn-secondary" href="komoditas/'.$id.'/edit">Edit</a>
                         ';
                         return $action; 
                         })
                     ->make(true);
+                break;
+            default:
+                Auth::logout();
+                return redirect()->route('login');
+                break;
+        }
     }
 
     public function getDetailKategoriKomoditas($id)
@@ -33,11 +120,6 @@ class KomoditasController extends Controller
         );
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         switch (Auth::user()->role_id) {
@@ -55,15 +137,8 @@ class KomoditasController extends Controller
                 return redirect()->route('login');
                 break;
         }
-        // $komoditas = Auth::user()->user_info->komoditas_disetujui;
-        // dd($komoditas); 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $kategori = KategoriKomoditas::all();
@@ -72,12 +147,6 @@ class KomoditasController extends Controller
         ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         request()->validate(
@@ -111,26 +180,17 @@ class KomoditasController extends Controller
         return redirect()->route('komoditas.index')->with('alert','Pengajuan Komoditas '.$detailKomoditas->keterangan.' gagal');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Komoditas  $Komoditas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Komoditas $Komoditas)
+    public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Komoditas  $Komoditas
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $komoditas = Komoditas::findOrFail($id);
+        if ($komoditas->status_pengajuan != 1) {
+            return redirect()->back()->with('alert','Tidak bisa melakukan proses edit');
+        }
         $kategori = KategoriKomoditas::all();
         return view('user.komoditas.edit', compact(
             'komoditas',
@@ -138,16 +198,37 @@ class KomoditasController extends Controller
         ));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Komoditas  $Komoditas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Komoditas $Komoditas)
+    public function update(Request $request, $id)
     {
-        //
+        request()->validate(
+            [
+                'kuantitas' => 'required|numeric',
+                'kategori' => 'numeric',
+                'detail_kategori' => 'numeric',
+                'harga' => 'required|numeric',
+            ],
+            [
+                'kuantitas.required' => 'Harap isi.',
+                'kategori.numeric' => 'Harap pilih salah satu',
+                'detail_kategori.numeric' => 'Harap pilih salah satu',
+                'harga.required' => 'Harap isi',
+            ]
+        );
+        
+        $detailKomoditas = KategoriKomoditasDetail::findOrFail($request->detail_kategori);
+
+        $komoditas = Komoditas::findOrFail($id);
+        $komoditas->harga_harapan = $request->harga;
+        $komoditas->kuantitas = $request->kuantitas;
+        $komoditas->kategori_komoditas_detail()->associate($detailKomoditas);
+        $komoditas->user_info()->associate(Auth::user()->user_info);
+        $saved = $komoditas->save();
+
+        if ($saved) {
+            return redirect()->route('komoditas.index')->with('alert','Ubah pengajuan komoditas '.$detailKomoditas->keterangan.' berhasil');
+        }
+
+        return redirect()->route('komoditas.index')->with('alert','Ubah pengajuan komoditas '.$detailKomoditas->keterangan.' gagal');
     }
 
     /**
