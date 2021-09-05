@@ -30,3 +30,4 @@ Route::get('beranda', [HomeController::class, 'beranda'])->name('beranda');
 Route::resource('komoditas', KomoditasController::class);
 Route::get('komoditas/get-detail-kategori/{id}', 'KomoditasController@getDetailKategoriKomoditas');
 Route::get('json-komoditas', 'KomoditasController@jsonKomoditas')->name('json.komoditas');
+Route::get('json-komoditas/{id}', 'KomoditasController@getKomoditasById');

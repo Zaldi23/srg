@@ -61,7 +61,7 @@ class KomoditasController extends Controller
                             $action = '
                                 <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
                                 <a class="btn btn-xs btn-secondary" href="komoditas/'.$id.'/edit">Edit</a>
-                                <a class="btn btn-xs btn-danger" href="komoditas/'.$id.'/hapus">Hapus</a>
+                                <a class="btn btn-xs btn-danger hapus" id="'.$id.'">Hapus</a>
                             ';
                         } elseif($row->status_pengajuan == 2) {
                             $action = '
@@ -80,7 +80,7 @@ class KomoditasController extends Controller
                             }
                         }else{
                             $action = '
-                                <a class="btn btn-xs btn-danger" href="komoditas/'.$id.'/hapus">Hapus</a>
+                                <a class="btn btn-xs btn-danger hapus" id="'.$id.'>Hapus</a>
                             ';
                         }
                         
@@ -118,6 +118,12 @@ class KomoditasController extends Controller
         return json_encode(
             KategoriKomoditasDetail::where('kategori_komoditas_id',$id)->get()
         );
+    }
+
+    public function getKomoditasById($id)
+    {
+        $result = Komoditas::with('kategori_komoditas_detail')->where('id',$id)->first();
+        return response()->json($result);
     }
     
     public function index()

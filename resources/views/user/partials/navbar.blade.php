@@ -52,7 +52,6 @@
           <i class="fas fa-user-circle"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header">Sigit Rizaldi</span>
           <div class="dropdown-divider"></div>
           <form action="{{route('auth.logout')}}" method="POST">
             @csrf
