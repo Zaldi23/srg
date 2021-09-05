@@ -264,14 +264,16 @@ class KomoditasController extends Controller
         return redirect()->route('komoditas.index')->with('alert','Ubah pengajuan komoditas '.$detailKomoditas->keterangan.' gagal');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Komoditas  $Komoditas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Komoditas $Komoditas)
+    public function destroy($id)
     {
-        //
+        $id = (int)$id;
+        $komoditas = Komoditas::findOrFail($id);
+        $deleted = $komoditas->delete();
+
+        if ($deleted) {
+            return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' berhasil dihapus');
+        }
+
+        return redirect()->route('komoditas.index')->with('alert','Hapus pengajuan komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' gagal');
     }
 }
