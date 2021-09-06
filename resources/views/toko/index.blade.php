@@ -90,7 +90,9 @@
 											<ul class="nav main-menu menu navbar-nav">
 													<li class="active"><a href="#">Beranda</a></li>
 													<li><a href="#">Produk Kami</a></li>
-													<li><a href="#">Berita Terkini</a>
+													<li><a href="#">Berita</a>
+													</li>
+                                                    <li><a href="#">Statistik</a>
 													</li>
                                                     <li><a href="#">Kontak Kami<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">
@@ -117,28 +119,44 @@
 	<!-- Slider Area -->
 	<section class="hero-slider">
 		<!-- Single Slider -->
-        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{{asset('toko/images/banner1.png')}}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{asset('toko/images/banner2.png')}}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{asset('toko/images/banner3.png')}}" class="d-block w-100" alt="...">
-                </div>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0"   class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="{{asset('toko/images/banner1.png')}}"          alt="First slide">
+                    <div class="carousel-caption d-md-block text-white">
+                        <h5>Kisah Sukses Petani Cabai</h5>
+                        <p class=" text-white"> <a class="nav-link" data-toggle="tab" href="#women" role="tab">Baca selengkapnya...</a></p>  
+                    </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{asset('toko/images/banner2.png')}}" alt="Second slide">
+                    <div class="carousel-caption d-md-block text-white">
+                    <h5>Kisah Sukses Petani Cabai Omset 10 Juta</h5>
+                    <p class=" text-white"> <a class="nav-link" data-toggle="tab" href="#women" role="tab">Baca selengkapnya...</a></p>  
+                    </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{asset('toko/images/banner3.png')}}" alt="Third slide">
+                    <div class="carousel-caption d-md-block text-white">
+                    <h5>Kisah Sukses Petani Cabai Rawit</h5>
+                    <p class=" text-white"> <a class="nav-link" data-toggle="tab" href="#women" role="tab">Baca selengkapnya...</a></p>  
+                    </div>
+            </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
         </div>
-		
 		<!--/ End Single Slider -->
 	</section>
 	<!--/ End Slider Area -->
@@ -1515,55 +1533,6 @@
 	<!-- End Midium Banner -->
 	
 	<!-- Start Shop Blog  -->
-	<section class="shop-blog section">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="section-title">
-						<h2>Berita Terkini</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6 col-12">
-					<!-- Start Single Blog  -->
-					<div class="shop-single-blog">
-						<img src="{{asset('toko/images/gambar1.png')}}" alt="#">
-						<div class="content">
-							<p class="date">Selasa, 31 Agustus 2021</p>
-							<a href="#" class="title">Panen Cabai Merah Melimpah</a>
-							<a href="#" class="more-btn">Lanjutkan Membaca</a>
-						</div>
-					</div>
-					<!-- End Single Blog  -->
-				</div>
-				<div class="col-lg-4 col-md-6 col-12">
-					<!-- Start Single Blog  -->
-					<div class="shop-single-blog">
-						<img src="{{asset('toko/images/gambar2.png')}}" alt="#">
-						<div class="content">
-							<p class="date">Rabu, 1 September 2021</p>
-							<a href="#" class="title">Kisah Sukses Petani Cabai</a>
-							<a href="#" class="more-btn">Lanjutkan Membaca</a>
-						</div>
-					</div>
-					<!-- End Single Blog  -->
-				</div>
-				<div class="col-lg-4 col-md-6 col-12">
-					<!-- Start Single Blog  -->
-					<div class="shop-single-blog">
-						<img src="{{asset('toko/images/gambar3.png')}}" alt="#">
-						<div class="content">
-							<p class="date">Kamis, 2 September 2021</p>
-							<a href="#" class="title">Cara Budidaya Cabai</a>
-							<a href="#" class="more-btn">Lanjutkan Membaca</a>
-						</div>
-					</div>
-					<!-- End Single Blog  -->
-				</div>
-			</div>
-		</div>
-	</section>
 	<!-- End Shop Blog  -->
 	
 	<!-- Modal -->
