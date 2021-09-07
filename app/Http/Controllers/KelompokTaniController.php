@@ -2,82 +2,88 @@
 
 namespace App\Http\Controllers;
 
+use App\Kecamatan;
 use App\KelompokTani;
+use App\UserInfo;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class KelompokTaniController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function jsonKelompokTaniDetail($id)
+    {
+        return DataTables::of(UserInfo::where('kelompok_tani_id',$id)->get())
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $id = $row->id;
+                $url = route('petani.show', $id);
+                
+                $action = '
+                    <a class="btn btn-xs btn-info" href="'.$url.'">Detail</a>
+                ';
+
+                return $action;
+            })
+            ->rawColumns([
+                'action',
+            ])
+            ->make(true);
+    }
+
+    public function jsonKelompokTani()
+    {
+        return DataTables::of(KelompokTani::with('desa.kecamatan'))
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $id = $row->id;
+
+                $action = '
+                    <a class="btn btn-xs btn-info" href="kelompok-tani/'.$id.'">Detail</a>
+                ';
+                return $action; 
+            })
+            ->rawColumns([
+                'action'
+            ])
+            ->make(true);
+    }
+
     public function index()
     {
-        //
+        return view('user.kelompok-tani.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        $kecamatan = Kecamatan::all();
+        return view('user.kelompok-tani.create',compact(
+            'kecamatan'
+        ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\KelompokTani  $kelompokTani
-     * @return \Illuminate\Http\Response
-     */
-    public function show(KelompokTani $kelompokTani)
+    public function show($id)
     {
-        //
+        $kelompokTani = KelompokTani::findOrFail($id);
+        return view('user.kelompok-tani.show',compact(
+            'kelompokTani'
+        ));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\KelompokTani  $kelompokTani
-     * @return \Illuminate\Http\Response
-     */
     public function edit(KelompokTani $kelompokTani)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\KelompokTani  $kelompokTani
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, KelompokTani $kelompokTani)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\KelompokTani  $kelompokTani
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(KelompokTani $kelompokTani)
     {
         //
