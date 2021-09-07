@@ -17,6 +17,7 @@ class CreateGudangsTable extends Migration
             $table->id();
             $table->string('nama_gudang');
             $table->integer('kuota');
+            $table->integer('terisi')->default(0);
             $table->unsignedBigInteger('desa_id');
             $table->foreign('desa_id')->references('id')->on('desas');
             $table->timestamps();
