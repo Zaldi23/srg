@@ -37,6 +37,8 @@ Route::resource('petani', PetaniController::class);
 Route::get('json-petani', 'PetaniController@jsonPetani')->name('json.petani');
 
 Route::resource('kelompok-tani', KelompokTaniController::class);
+Route::get('json-kelompok-tani', 'KelompokTaniController@jsonKelompokTani')->name('json.kelompok.tani');
+Route::get('json-kelompok-tani/{id}', 'KelompokTaniController@jsonKelompokTaniDetail')->name('json.kelompok.tani.detail');
 
 Route::resource('gudang', GudangController::class);
 Route::get('json-gudang', 'GudangController@jsonGudang')->name('json.gudang');
