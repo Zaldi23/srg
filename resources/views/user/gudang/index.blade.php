@@ -90,6 +90,17 @@
                     @break
                 @case(3)
                     <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-7">
+                                <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                                </nav>
+                            </div>
+                            <div class="col-lg-6 col-5 text-right">
+                                <a href="{{route('gudang.create')}}" class="btn btn-sm btn-success">+ Tambah Gudang</a>
+                            </div>
+                            <br>
+                        </div>
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="card card-info">

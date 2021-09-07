@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Desa;
 use App\Gudang;
+use App\Kecamatan;
 use App\Komoditas;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -13,6 +15,13 @@ class GudangController extends Controller
     {
         return json_encode(
             Gudang::where('desa_id',$desaId)->get()
+        );
+    }
+
+    public function getDesaByKecamatan($id)
+    {
+        return json_encode(
+            Desa::where('kecamatan_id',$id)->get()
         );
     }
 
@@ -97,19 +106,43 @@ class GudangController extends Controller
         return view('user.gudang.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $kecamatan = Kecamatan::all();
+        return view('user.gudang.create',compact(
+            'kecamatan'
+        ));
     }
 
     public function store(Request $request)
     {
-        //
+        request()->validate(
+            [
+                'kecamatan' => 'required|numeric',
+                'desa' => 'numeric',
+                'keterangan' => 'required',
+                'kuota' => 'required|numeric',
+            ],
+            [
+                'required' => 'Harap isi',
+                'numeric' => 'tidak valid'
+            ]
+        );
+
+        $desa = Desa::findOrFail($request->desa);
+
+        $gudang = new Gudang;
+        $gudang->nama_gudang = $request->keterangan;
+        $gudang->kuota = $request->kuota;
+        $gudang->desa()->associate($desa);
+        $saved = $gudang->save();
+
+        if ($saved) {
+            return redirect()->route('gudang.index')->with('alert','Pembuatan gudang dengan nama '.$request->keterangan.' berhasil');
+        }
+
+        return redirect()->route('gudang.index')->with('alert','Pembuatan gudang dengan nama '.$request->keterangan.' gagal');
+
     }
 
     public function show($id)
