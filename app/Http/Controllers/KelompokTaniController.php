@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Desa;
 use App\Kecamatan;
 use App\KelompokTani;
 use App\UserInfo;
@@ -63,7 +64,30 @@ class KelompokTaniController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        request()->validate(
+            [
+                'kecamatan' => 'required|numeric',
+                'desa' => 'numeric',
+                'keterangan' => 'required',
+            ],
+            [
+                'required' => 'Harap isi',
+                'numeric' => 'tidak valid'
+            ]
+        );
+
+        $desa = Desa::findOrFail($request->desa);
+
+        $kelompokTani = new KelompokTani();
+        $kelompokTani->keterangan = $request->keterangan;
+        $kelompokTani->desa()->associate($desa);
+        $saved = $kelompokTani->save();
+
+        if ($saved) {
+            return redirect()->route('kelompok-tani.index')->with('alert','Pembuatan kelompok tani dengan nama '.$request->keterangan.' berhasil');
+        }
+
+        return redirect()->route('kelompok-tani.index')->with('alert','Pembuatan kelompok tani dengan nama '.$request->keterangan.' gagal');
     }
 
     public function show($id)
@@ -74,17 +98,17 @@ class KelompokTaniController extends Controller
         ));
     }
 
-    public function edit(KelompokTani $kelompokTani)
+    public function edit($id)
     {
         //
     }
     
-    public function update(Request $request, KelompokTani $kelompokTani)
+    public function update(Request $request, $id)
     {
         //
     }
 
-    public function destroy(KelompokTani $kelompokTani)
+    public function destroy($id)
     {
         //
     }

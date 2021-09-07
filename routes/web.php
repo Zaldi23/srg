@@ -60,6 +60,8 @@ Route::get('json-gudang/{id}', 'GudangController@jsonGudangDetail')->name('json.
 Route::post('gudang/manage-komoditas', 'KomoditasController@manage')->name('gudang.manage');
 
 Route::resource('kecamatan', KecamatanController::class);
+Route::get('json-kecamatan', 'KecamatanController@jsonKecamatan')->name('json.kecamatan');
+Route::get('json-desa-by-kecamatan/{id}', 'KecamatanController@jsonDesaByKecamatan')->name('json.desa.by.kecamatan');
 
 Route::resource('desa', DesaController::class);
 
