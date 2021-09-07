@@ -19,6 +19,15 @@ Route::get('/', function () {
     return view('toko.index');
 });
 
+Route::get('/berita', function () {
+    return view('berita.index');
+});
+Route::get('/detail', function () {
+    return view('berita.detail');
+});
+
+
+
 Route::get('/berandalpk', 'HomeController@berandalpk');
 
 Route::get('login', [AuthController::class, 'show_login_form'])->name('login');

@@ -45,6 +45,7 @@
 		</div>
 		<!-- End Topbar -->
 		<!-- End Topbar -->
+		
 		<div class="middle-inner">
 			<div class="container">
 				<div class="row">
