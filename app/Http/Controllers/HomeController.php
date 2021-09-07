@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Desa;
+use App\Gudang;
 use App\KategoriKomoditas; //DELETE SOON
+use App\KategoriKomoditasDetail;
+use App\Kecamatan;
+use App\KelompokTani;
+use App\Komoditas;
+use App\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,14 +29,27 @@ class HomeController extends Controller
                 # code...
                 break;
             case 3: //PENGELOLA GUDANG
-                # code...
+                $totalKomoditas = Komoditas::all()->count();
+                $totalPetani = UserInfo::all()->count();
+                $totalKecamatan = Kecamatan::all()->count();
+                $totalDesa = Desa::all()->count();
+                $totalGudang = Gudang::all()->count();
+                $totalKelompokTani = KelompokTani::all()->count();
+                $totalJenisCabai = KategoriKomoditasDetail::all()->count();
+                return view('user.index', compact(
+                    'totalKomoditas',
+                    'totalPetani',
+                    'totalKecamatan',
+                    'totalDesa',
+                    'totalGudang',
+                    'totalKelompokTani',
+                    'totalJenisCabai',
+                ));
                 break;
             default:
                 Auth::logout();
                 return redirect()->route('login');
                 break;
         }
-
-        return view('user.index');
     }
 }

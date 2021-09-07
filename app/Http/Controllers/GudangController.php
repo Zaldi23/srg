@@ -39,7 +39,6 @@ class GudangController extends Controller
                     case 1:
                         $action = '
                             <a class="btn btn-xs btn-info" href="'.$url.'">Detail</a>
-                            <a class="btn btn-xs btn-warning kosongkan" id="'.$id.'">Kosongkan</a>
                         ';
                         break;
                     default:

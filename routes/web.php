@@ -25,6 +25,8 @@ Route::get('login', [AuthController::class, 'show_login_form'])->name('login');
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
+Route::get('pengelola-gudang-info', 'UserInfoController@jsonInformasiUntukPengelolaGudang')->name('json.pengelola.gudang.info');
+
 Route::get('beranda', [HomeController::class, 'beranda'])->name('beranda');
 
 Route::resource('komoditas', KomoditasController::class);
@@ -35,6 +37,7 @@ Route::get('json-komoditas/{id}', 'KomoditasController@getKomoditasById');
 
 Route::resource('petani', PetaniController::class);
 Route::get('json-petani', 'PetaniController@jsonPetani')->name('json.petani');
+Route::get('json-petani/{id}', 'PetaniController@jsonPetaniDetail')->name('json.petani.detail');
 
 Route::resource('kelompok-tani', KelompokTaniController::class);
 Route::get('json-kelompok-tani', 'KelompokTaniController@jsonKelompokTani')->name('json.kelompok.tani');

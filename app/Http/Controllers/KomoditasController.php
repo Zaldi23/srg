@@ -57,11 +57,13 @@ class KomoditasController extends Controller
                     })
                     ->addColumn('action', function($row){
                         $id = $row->id;
+                        $detailKomoditasUrl = route('komoditas.show',$id);
+                        $editKomoditasUrl = route('komoditas.edit',$id);
 
                         if ($row->status_pengajuan == 1) {
                             $action = '
-                                <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
-                                <a class="btn btn-xs btn-secondary" href="komoditas/'.$id.'/edit">Edit</a>
+                                <a class="btn btn-xs btn-info" href="'.$detailKomoditasUrl.'">Detail</a>
+                                <a class="btn btn-xs btn-secondary" href="'.$editKomoditasUrl.'">Edit</a>
                                 <a class="btn btn-xs btn-danger hapus" id="'.$id.'">Hapus</a>
                             ';
                         } elseif($row->status_pengajuan == 2) {
@@ -71,12 +73,12 @@ class KomoditasController extends Controller
                         }elseif($row->status_pengajuan == 3){
                             if ($row->status_uji_kualitas == 2) {
                                 $action = '
-                                    <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
+                                    <a class="btn btn-xs btn-info" href="'.$detailKomoditasUrl.'">Detail</a>
                                     <a class="btn btn-xs btn-dark" href="komoditas/cetak-surat-mutu/'.$id.'">Cetak</a>
                                 ';
                             }else{
                                 $action = '
-                                    <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
+                                    <a class="btn btn-xs btn-info" href="'.$detailKomoditasUrl.'">Detail</a>
                                 ';
                             }
                         }else{

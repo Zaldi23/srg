@@ -145,7 +145,7 @@
                 bAutoWidth: true,
                 // processing: true,
                 serverSide: true,
-                ajax: "{{ route('json.kelompok.tani') }}"+"/"+id,
+                ajax: "{{ route('json.kelompok.tani','') }}"+"/"+id,
                 
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false},
