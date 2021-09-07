@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Gudang;
 use App\KategoriKomoditas;
 use App\KategoriKomoditasDetail;
 use App\Komoditas;
@@ -149,7 +150,7 @@ class KomoditasController extends Controller
 
     public function getKomoditasById($id)
     {
-        $result = Komoditas::with('kategori_komoditas_detail')->where('id',$id)->first();
+        $result = Komoditas::with('kategori_komoditas_detail','gudang')->where('id',$id)->first();
         return response()->json($result);
     }
     
@@ -283,6 +284,69 @@ class KomoditasController extends Controller
 
     public function penggudangan(Request $request)
     {
-        dd($request);
+        request()->validate(
+            [
+                'desa' => 'required|numeric',
+                'gudang' => 'required|numeric',
+                'harga_jual' => 'required|numeric'
+            ],
+            [
+                'required' => 'Harap isi pilih salah satu',
+                'numeric' => 'Tidak valid',
+            ]
+        );
+        $gudang = Gudang::findOrFail($request->gudang);
+        if ($gudang->terisi < $gudang->kuota) {
+            $komoditas = Komoditas::findOrFail($request->komoditas);
+            
+            $gudang->terisi = $gudang->terisi + $komoditas->kuantitas;
+            $gudang->save();
+
+            $komoditas->status_pengajuan = 3;
+        }else{
+            $komoditas = Komoditas::findOrFail($request->komoditas);
+            $komoditas->status_pengajuan = 3;
+        }
+
+        $komoditas->harga_jual = $request->harga_jual;
+        $komoditas->status_komoditas_di_gudang = 2;
+        $komoditas->gudang()->associate($gudang);
+        $saved = $komoditas->save();
+
+        if ($saved) {
+            return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' berhasil masuk gudang');
+        }
+
+        return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' gagal diproses');
+    }
+
+    public function manage(Request $request)
+    {
+        request()->validate(
+            [
+                'komoditas_id' => 'required|numeric'
+            ],
+            [
+                'required' => 'Harap isi pilih salah satu',
+                'numeric' => 'Tidak valid',
+            ]
+        );
+        $komoditas = Komoditas::findOrFail($request->komoditas_id);
+        $komoditas->status_komoditas_di_gudang = 3;
+        
+        $komoditas->gudang->terisi = $komoditas->gudang->terisi - $komoditas->kuantitas;
+        
+        $saved = $komoditas->gudang->save();
+        if ($saved) {
+            $saved = $komoditas->save();
+    
+            if ($saved) {
+                return redirect()->back()->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' berhasil dikosongkang');
+            }
+
+            return redirect()->back()->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' gagal diproses');
+        }
+
+        return redirect()->back()->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' gagal diproses');
     }
 }

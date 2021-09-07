@@ -32,4 +32,21 @@ Route::post('komoditas-penggudangan', 'KomoditasController@penggudangan')->name(
 Route::get('komoditas/get-detail-kategori/{id}', 'KomoditasController@getDetailKategoriKomoditas');
 Route::get('json-komoditas', 'KomoditasController@jsonKomoditas')->name('json.komoditas');
 Route::get('json-komoditas/{id}', 'KomoditasController@getKomoditasById');
+
+Route::resource('petani', PetaniController::class);
+Route::get('json-petani', 'PetaniController@jsonPetani')->name('json.petani');
+
+Route::resource('kelompok-tani', KelompokTaniController::class);
+
+Route::resource('gudang', GudangController::class);
+Route::get('json-gudang', 'GudangController@jsonGudang')->name('json.gudang');
+Route::get('json-gudang/{id}', 'GudangController@jsonGudangDetail')->name('json.gudang.detail');
+Route::post('gudang/manage-komoditas', 'KomoditasController@manage')->name('gudang.manage');
+
+Route::resource('kecamatan', KecamatanController::class);
+
+Route::resource('desa', DesaController::class);
+
+Route::resource('jenis-cabai', JenisCabaiController::class);
+
 Route::get('gudang-desa/{desa_id}', 'GudangController@getGudangByDesa')->name('gudang.desa');

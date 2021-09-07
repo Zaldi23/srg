@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Gudang;
+use App\Komoditas;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class GudangController extends Controller
 {
@@ -14,9 +16,86 @@ class GudangController extends Controller
         );
     }
 
+    public function jsonGudangDetail($id)
+    {
+        return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('gudang_id',$id))
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $id = $row->id;
+                $url = route('komoditas.show', $id);
+                
+                switch ($row->status_komoditas_di_gudang) {
+                    case 3:
+                        $action = '
+                            <a class="btn btn-xs btn-info" href="'.$url.'">Detail</a>
+                        ';
+                        break;
+                    case 2:
+                        $action = '
+                            <a class="btn btn-xs btn-info" href="'.$url.'">Detail</a>
+                            <a class="btn btn-xs btn-warning kosongkan" id="'.$id.'">Kosongkan</a>
+                        ';
+                        break;
+                    case 1:
+                        $action = '
+                            <a class="btn btn-xs btn-info" href="'.$url.'">Detail</a>
+                            <a class="btn btn-xs btn-warning kosongkan" id="'.$id.'">Kosongkan</a>
+                        ';
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+
+                return $action;
+            })
+            ->addColumn('status_di_gudang',function($row){
+                switch ($row->status_komoditas_di_gudang) {
+                    case 3:
+                        $action = '
+                            <a class="btn btn-xs btn-secondary" disabled>Sudah dikosongkan</a>
+                        ';
+                        break;
+                    case 2:
+                        $action = '
+                            <a class="btn btn-xs btn-success" disabled>Masih tersimpan</a>
+                        ';
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+
+                return $action;
+            })
+            ->rawColumns([
+                'action',
+                'status_di_gudang'
+            ])
+            ->make(true);
+    }
+
+    public function jsonGudang()
+    {
+        return DataTables::of(Gudang::with('desa.kecamatan'))
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $id = $row->id;
+
+                $action = '
+                    <a class="btn btn-xs btn-info" href="gudang/'.$id.'">Detail</a>
+                ';
+                return $action; 
+            })
+            ->rawColumns([
+                'action'
+            ])
+            ->make(true);
+    }
+
     public function index()
     {
-        //
+        return view('user.gudang.index');
     }
 
     /**
@@ -29,47 +108,25 @@ class GudangController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Gudang  $Gudang
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Gudang $Gudang)
+    public function show($id)
+    {
+        $gudang = Gudang::findOrFail($id);
+        return view('user.gudang.show',compact(
+            'gudang'
+        ));
+    }
+
+    public function edit(Gudang $gudang)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Gudang  $Gudang
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Gudang $Gudang)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Gudang  $Gudang
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Gudang $Gudang)
+    public function update(Request $request, Gudang $gudang)
     {
         //
     }
@@ -77,10 +134,10 @@ class GudangController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Gudang  $Gudang
+     * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gudang $Gudang)
+    public function destroy(Gudang $gudang)
     {
         //
     }
