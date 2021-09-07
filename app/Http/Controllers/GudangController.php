@@ -18,13 +18,6 @@ class GudangController extends Controller
         );
     }
 
-    public function getDesaByKecamatan($id)
-    {
-        return json_encode(
-            Desa::where('kecamatan_id',$id)->get()
-        );
-    }
-
     public function jsonGudangDetail($id)
     {
         return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('gudang_id',$id))

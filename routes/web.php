@@ -29,6 +29,8 @@ Route::get('pengelola-gudang-info', 'UserInfoController@jsonInformasiUntukPengel
 
 Route::get('beranda', [HomeController::class, 'beranda'])->name('beranda');
 
+Route::get('get-desa-by-kecamatan/{id}', 'DesaController@getDesaByKecamatan')->name('get-desa-by-kecamatan');
+
 Route::resource('komoditas', KomoditasController::class);
 Route::post('komoditas-penggudangan', 'KomoditasController@penggudangan')->name('komoditas.penggudangan');
 Route::get('komoditas/get-detail-kategori/{id}', 'KomoditasController@getDetailKategoriKomoditas');
@@ -46,7 +48,6 @@ Route::get('json-kelompok-tani/{id}', 'KelompokTaniController@jsonKelompokTaniDe
 Route::resource('gudang', GudangController::class);
 Route::get('json-gudang', 'GudangController@jsonGudang')->name('json.gudang');
 Route::get('json-gudang/{id}', 'GudangController@jsonGudangDetail')->name('json.gudang.detail');
-Route::get('gudang/get-desa-by-kecamatan/{id}', 'GudangController@getDesaByKecamatan');
 Route::post('gudang/manage-komoditas', 'KomoditasController@manage')->name('gudang.manage');
 
 Route::resource('kecamatan', KecamatanController::class);

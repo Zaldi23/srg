@@ -1,7 +1,7 @@
 @extends('user.partials.master')
 
 @section('title')
-    Gudang
+    Kelompok Tani
 @endsection
 
 @section('content')
@@ -13,16 +13,16 @@
                     <!-- jquery validation -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Buat Gudang</h3>
+                            <h3 class="card-title">Buat Kelompok Tani Baru</h3>
                         </div>
                         <!-- /.card-header -->
 
                         <!-- form start -->
-                        <form id="quickForm" method="POST" action="{{route('gudang.store')}}">
+                        <form id="quickForm" method="POST" action="{{route('kelompok-tani.store')}}">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="kecamatan">Kecamatan</label>
                                             <select name="kecamatan" id="kecamatan" class="form-control" style="width: 100%;">
@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
                                         <script>
                                             $(document).ready(function(){
@@ -64,23 +64,11 @@
                                             <select class="form-control" name="desa" id="desa" style="width: 100%;"></select>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="keterangan">Nama gudang</label>
+                                    <div class="col-md-4">
+                                        <label for="keterangan">Nama Kelompok Tani</label>
                                         <div class="input-group">
-                                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Harga Harapan Perkilogram">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="kuota">Daya tampung</label>
-                                        <div class="input-group">
-                                            <input type="number" name="kuota" class="form-control" id="kuota" placeholder="Daya tampung gudang dalam kilogram">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Kg</span>
-                                            </div>
+                                            <input type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Nama Kelompok Tani">
                                         </div>
                                     </div>
                                 </div>
@@ -93,13 +81,7 @@
                         </form>
                     </div>
                     <!-- /.card -->
-                    </div>
-                <!--/.col (left) -->
-                <!-- right column -->
-                <div class="col-md-6">
-
                 </div>
-                <!--/.col (right) -->
             </div>
                 <!-- /.row -->
         </div><!-- /.container-fluid -->

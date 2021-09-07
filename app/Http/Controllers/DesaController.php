@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class DesaController extends Controller
 {
+    public function getDesaByKecamatan($id)
+    {
+        return json_encode(
+            Desa::where('kecamatan_id',$id)->get()
+        );
+    }
+
     /**
      * Display a listing of the resource.
      *

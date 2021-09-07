@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Kecamatan;
 use App\KelompokTani;
 use App\UserInfo;
 use Illuminate\Http\Request;
@@ -54,12 +55,15 @@ class KelompokTaniController extends Controller
     
     public function create()
     {
-        //
+        $kecamatan = Kecamatan::all();
+        return view('user.kelompok-tani.create',compact(
+            'kecamatan'
+        ));
     }
 
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     public function show($id)
