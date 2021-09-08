@@ -127,7 +127,7 @@
                 <div class="card card-default">
                     <div class="card-header bg-white">
                         <h4 class="card-title"><i class="ti-menu-alt"></i>
-                        Berita / Detail
+                            Berita / Detail
                         </h4>
                     </div>
                 <!-- /.card-header -->
@@ -155,7 +155,7 @@
                 <div class="carousel-inner">
                  
                                   <div class="item active">
-                    <img id="view-image" class="img-thumbnail" src="{{asset('/Toko/images/gambar1.png')}}" alt="" style="width:100%; height: 100%;">
+                    <img id="view-image" class="img-thumbnail" src="{{asset('toko/images/gambar1.png')}}" alt="" style="width:100%; height: 100%;">
                     <div class="image-description"></div>
                   </div>
                                 

@@ -133,7 +133,7 @@
 				<div class="line-style"></div>
 				<blockquote class="testimonial-success" style="margin-bottom: 10px; margin-top: 10px;">
                 <a href="#">
-                <img src="{{asset('/Toko/images/gambar1.png')}}" class="img-thumbnail" style="width: 150px; margin-right: 11px;" align="left">
+                <img src="{{asset('toko/images/gambar1.png')}}" class="img-thumbnail" style="width: 150px; margin-right: 11px;" align="left">
                 </a>
                 <h4 style="margin-top: 0px;"><a href="#" style="color: #19a34e;">PETANI CABAI INI SAPAI OMSET 10 JUTA PERBULAN</a></h4>
                 <div style="margin-top: -5px;">
@@ -147,7 +147,7 @@
 				metode lelang / dipihak ketigakan yang dilaksanakan di beberapa Kabupaten di
 				Provinsi Jawa Tengah.&nbsp;Penerima
 				paket sembako&#8230;</p>  
-                <a href="#"><i class="fa fa-chevron-right"></i> Selengkapnya</a>
+                <a href="{{url('/detail')}}"><i class="fa fa-chevron-right"></i> Selengkapnya</a>
                 </div>
             </blockquote>
             </div>

@@ -90,7 +90,7 @@
 											<ul class="nav main-menu menu navbar-nav">
 													<li class="active"><a href="#">Beranda</a></li>
 													<li><a href="#">Produk Kami</a></li>
-													<li><a href="#">Berita</a>
+													<li><a href="{{url('berita')}}">Berita</a>
 													</li>
                                                     <li><a href="#">Statistik</a>
 													</li>
