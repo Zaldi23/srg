@@ -118,80 +118,102 @@
 	
 	<!-- Slider Area -->
 	<!-- START ALERTS AND CALLOUTS -->
-    <div class="container">
-    <!-- Content here -->      <br>      <br>
-			<div class="row">
-                <div class="col-md-8">
-            <div class="card card-default">
-            <div class="card-header bg-white">
-                <h4 class="card-title"><i class="ti-menu-alt"></i>
-                    List Berita
-                </h4>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-				<div class="line-style"></div>
-				<blockquote class="testimonial-success" style="margin-bottom: 10px; margin-top: 10px;">
-                <a href="#">
-                <img src="{{asset('toko/images/gambar1.png')}}" class="img-thumbnail" style="width: 150px; margin-right: 11px;" align="left">
-                </a>
-                <h4 style="margin-top: 0px;"><a href="#" style="color: #19a34e;">PETANI CABAI INI SAPAI OMSET 10 JUTA PERBULAN</a></h4>
-                <div style="margin-top: -5px;">
-                <span style="font-size: 11px; margin-right: 13px;"><i class="fa fa-book"></i> Berita Terbaru</span>
-                <span style="font-size: 11px; margin-right: 13px;"><i class="fa fa-calendar"></i> 07 Mei 2021 10:43:31 WIB</span>
-                <span style="font-size: 11px; margin-right: 13px;"><i class="fa fa-user"></i> Administrator</span>
-                </div>
-                <div style="margin-top: 15px; font-size: 13px;">
-                <p>&nbsp; &nbsp; Kebumen - Selasa, 4 Mei 2021 telah dilaksanakan kegiatan sembako murah. kegiatan ini&nbsp; merupakan program inisiasi dari DPRD Provinsi Jawa Tengah bekerja
-				sama dengan Dinas Perindustrian dan Perdagangan Provinsi Jawa Tengah dengan
-				metode lelang / dipihak ketigakan yang dilaksanakan di beberapa Kabupaten di
-				Provinsi Jawa Tengah.&nbsp;Penerima
-				paket sembako&#8230;</p>  
-                <a href="{{url('/detail')}}"><i class="fa fa-chevron-right"></i> Selengkapnya</a>
-                </div>
-            </blockquote>
-            </div>
-            <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col -->
+	<div class="container">
+		<br><br>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card card-default">
+					<div class="card-header bg-white">
+						<h4 class="card-title"> <i class="ti-menu-alt"></i>
+							List Berita
+						</h4>
+					</div>
+					<div class="card-body">
+						<div class="line-style">
+							<blockquote class="testimonial-success" style="margin-bottom: 10px; margin-top: 10px;">
+								<a href="#">
+									<img src="{{asset('toko/images/gambar1.png')}}" class="img-thumbnail" style="width: 150px; margin-right: 11px;" align="left">
+								</a>
+								<h4 style="margin-top: 0px;">
+									<a href="#" style="color: #19a34e;">
+									PETANI CABAI INI SAPAI OMSET 10 JUTA PERBULAN
+									</a>
+								</h4>
+								<div style="margin-top: -5px;">
+									<span style="font-size: 11px; margin-right: 13px;">
+										<i class="fa fa-book">
+											Berita Terbaru
+										</i>
+									</span>
+									<span style="font-size: 11px; margin-right: 13px;">
+										<i class="class=fa fa-calendar">
+											07 Mei 2021 10:43:31 WIB
+										</i>
+									</span>
+									<span style="font-size: 11px; margin-right: 13px;">
+										<i class="fa fa-user">
+											Administrator
+										</i>
+									</span>
+								</div>
+								<div style="margin-top: 15px; font-size: 13px;">
+									<p>
+										&nbsp; &nbsp; Kebumen - Selasa, 4 Mei 2021 telah dilaksanakan kegiatan sembako murah. kegiatan ini&nbsp; merupakan program inisiasi dari DPRD Provinsi Jawa Tengah bekerja
+										sama dengan Dinas Perindustrian dan Perdagangan Provinsi Jawa Tengah dengan
+										metode lelang / dipihak ketigakan yang dilaksanakan di beberapa Kabupaten di
+										Provinsi Jawa Tengah.&nbsp;Penerima
+										paket sembako&#8230;
+									</p>
+									<a href="{{url('/detail')}}">
+										<i class="fa fa-chevron-right">
+											Selengkapnya
+										</i>
+									</a>
+								</div>
+							</blockquote>
+						</div>
+					</div>
+				</div>
+			</div>
 
-        <div class="col-md-4">
-            <div class="card card-default">
-            <div class="card-header bg-white">
-                <h5 class="card-title"><i class="ti-folder"></i>
-                Arsip Berita Terbaru
-                </h5>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-				<div class="callout callout-danger">
-				<ul class="list-group"  type="button" type="button" active">
-				<li class="list-group-item d-flex justify-content-between align-items-center">
-					September 2021
-					<span class="badge badge-primary bg-primary badge-pill">14 Artikel</span>
-				</li>
-				<li class="list-group-item d-flex justify-content-between align-items-center">
-					Oktober 2021
-					<span class="badge badge-primary bg-primary badge-pill">2 Artikel</span>
-				</li>
-				<li class="list-group-item d-flex justify-content-between align-items-center">
-					Desember 2020
-					<span class="badge badge-primary bg-primary badge-pill">1 Artikel</span>
-				</li>
-				</ul>
-                </div>
+		
 
-            </div>
-            <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col -->
-        </div>
-        <!-- /.row -->
-        <!-- END ALERTS AND CALLOUTS -->
-        </div>
-        <br>      <br>
+	
+    <!-- Content here -->
+   
+            <!-- /.card-header -->
+			<div class="col-md-4">
+				<div class="card card-default">
+					<div class="card-header bg-white">
+						<h5 class="card-title">
+							<i class="ti-folder">
+								Arsip Berita Terbaru
+							</i>
+						</h5>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<div class="callout callout-danger">
+							<ul class="list-group"  type="button" type="button" active>
+								<li class="list-group-item d-flex justify-content-between 		align-items-center">
+									September 2021
+									<span class="badge badge-primary bg-primary badge-pill">14 Artikel
+									</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									Oktober 2021
+									<span class="badge badge-primary bg-primary badge-pill">2 Artikel</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									Desember 2020
+									<span class="badge badge-primary bg-primary badge-pill">1 Artikel	</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+        <br> <br>
 @endsection
