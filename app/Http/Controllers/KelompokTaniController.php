@@ -11,6 +11,26 @@ use Yajra\DataTables\DataTables;
 
 class KelompokTaniController extends Controller
 {
+    public function jsonKelompokTaniByDesa($id)
+    {
+        return DataTables::of(KelompokTani::with('user_info')->where('desa_id',$id)->get())
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $id = $row->id;
+                $url = route('kelompok-tani.show', $id);
+                
+                $action = '
+                    <a class="btn btn-xs btn-info" href="'.$url.'">Detail</a>
+                ';
+
+                return $action;
+            })
+            ->rawColumns([
+                'action',
+            ])
+            ->make(true);
+    }
+
     public function jsonKelompokTaniDetail($id)
     {
         return DataTables::of(UserInfo::where('kelompok_tani_id',$id)->get())

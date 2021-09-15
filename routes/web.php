@@ -38,8 +38,6 @@ Route::get('pengelola-gudang-info', 'UserInfoController@jsonInformasiUntukPengel
 
 Route::get('beranda', [HomeController::class, 'beranda'])->name('beranda');
 
-Route::get('get-desa-by-kecamatan/{id}', 'DesaController@getDesaByKecamatan')->name('get-desa-by-kecamatan');
-
 Route::resource('komoditas', KomoditasController::class);
 Route::post('komoditas-penggudangan', 'KomoditasController@penggudangan')->name('komoditas.penggudangan');
 Route::get('komoditas/get-detail-kategori/{id}', 'KomoditasController@getDetailKategoriKomoditas');
@@ -53,10 +51,12 @@ Route::get('json-petani/{id}', 'PetaniController@jsonPetaniDetail')->name('json.
 Route::resource('kelompok-tani', KelompokTaniController::class);
 Route::get('json-kelompok-tani', 'KelompokTaniController@jsonKelompokTani')->name('json.kelompok.tani');
 Route::get('json-kelompok-tani/{id}', 'KelompokTaniController@jsonKelompokTaniDetail')->name('json.kelompok.tani.detail');
+Route::get('json-kelompok-tani-by-desa/{id}', 'KelompokTaniController@jsonKelompokTaniByDesa')->name('json.kelompok.tani.by.desa');
 
 Route::resource('gudang', GudangController::class);
 Route::get('json-gudang', 'GudangController@jsonGudang')->name('json.gudang');
 Route::get('json-gudang/{id}', 'GudangController@jsonGudangDetail')->name('json.gudang.detail');
+Route::get('json-gudang-by-desa/{id}', 'GudangController@jsonGudangByDesa')->name('json.gudang.by.desa');
 Route::post('gudang/manage-komoditas', 'KomoditasController@manage')->name('gudang.manage');
 
 Route::resource('kecamatan', KecamatanController::class);
@@ -64,6 +64,8 @@ Route::get('json-kecamatan', 'KecamatanController@jsonKecamatan')->name('json.ke
 Route::get('json-desa-by-kecamatan/{id}', 'KecamatanController@jsonDesaByKecamatan')->name('json.desa.by.kecamatan');
 
 Route::resource('desa', DesaController::class);
+Route::get('json-desa', 'DesaController@jsonDesa')->name('json.desa');
+Route::get('get-desa-by-kecamatan/{id}', 'DesaController@getDesaByKecamatan')->name('get-desa-by-kecamatan');
 
 Route::resource('jenis-cabai', JenisCabaiController::class);
 

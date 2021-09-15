@@ -11,6 +11,26 @@ use Yajra\DataTables\DataTables;
 
 class GudangController extends Controller
 {
+    public function jsonGudangByDesa($id)
+    {
+        return DataTables::of(Gudang::where('desa_id',$id)->get())
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $id = $row->id;
+                $url = route('gudang.show', $id);
+                
+                $action = '
+                    <a class="btn btn-xs btn-info" href="'.$url.'">Detail</a>
+                ';
+
+                return $action;
+            })
+            ->rawColumns([
+                'action',
+            ])
+            ->make(true);
+    }
+
     public function getGudangByDesa($desaId)
     {
         return json_encode(

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Desa;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class DesaController extends Controller
 {
@@ -14,78 +15,57 @@ class DesaController extends Controller
         );
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function jsonDesa()
     {
-        //
+        return DataTables::of(Desa::with('kecamatan')->get())
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $showDesaUrl = route('desa.show',$row->id);
+                $action = '
+                    <a class="btn btn-xs btn-info" href="'.$showDesaUrl.'">Detail</a>
+                ';
+                return $action; 
+            })
+            ->rawColumns([
+                'action'
+            ])
+            ->make(true);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index()
+    {
+        return view('user.desa.index');
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Desa  $desa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Desa $desa)
+    public function show($id)
+    {
+        $desa = Desa::findOrFail($id);
+        return view('user.desa.show', compact(
+            'desa'
+        ));
+    }
+
+    public function edit($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Desa  $desa
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Desa $desa)
+    public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Desa  $desa
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Desa $desa)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Desa  $desa
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Desa $desa)
+    public function destroy($id)
     {
         //
     }
