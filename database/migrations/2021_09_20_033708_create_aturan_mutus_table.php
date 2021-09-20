@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAturanKualitasTable extends Migration
+class CreateAturanMutusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateAturanKualitasTable extends Migration
      */
     public function up()
     {
-        Schema::create('aturan_kualitas', function (Blueprint $table) {
+        Schema::create('aturan_mutus', function (Blueprint $table) {
             $table->id();
+            $table->integer('total_poin_min');
+            $table->integer('total_poin_max');
             $table->string('keterangan');
-            $table->double('nilai_min');
-            $table->double('nilai_max');
-            $table->integer('poin');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateAturanKualitasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aturan_kualitas');
+        Schema::dropIfExists('aturan_mutus');
     }
 }

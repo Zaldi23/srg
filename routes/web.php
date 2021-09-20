@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('toko.index');
-});
+Route::get('/', 'GuestController@index')->name('landing-page');
 
 Route::get('/berita', function () {
     return view('berita.index');
@@ -41,12 +39,15 @@ Route::get('beranda', [HomeController::class, 'beranda'])->name('beranda');
 Route::resource('komoditas', KomoditasController::class);
 Route::post('komoditas-penggudangan', 'KomoditasController@penggudangan')->name('komoditas.penggudangan');
 Route::get('komoditas/get-detail-kategori/{id}', 'KomoditasController@getDetailKategoriKomoditas');
+Route::get('komoditas/cetak-surat-mutu/{id}', 'KomoditasController@cetakSuratKualitas');
 Route::get('json-komoditas', 'KomoditasController@jsonKomoditas')->name('json.komoditas');
 Route::get('json-komoditas/{id}', 'KomoditasController@getKomoditasById');
+Route::post('uji-kualitas-komoditas/{id}', 'KomoditasController@ujiKualitas')->name('komoditas.uji');
+Route::get('statistik', 'KomoditasController@statistik')->name('statistik.index');
 
-Route::resource('petani', PetaniController::class);
-Route::get('json-petani', 'PetaniController@jsonPetani')->name('json.petani');
-Route::get('json-petani/{id}', 'PetaniController@jsonPetaniDetail')->name('json.petani.detail');
+Route::resource('petani', UserInfoController::class);
+Route::get('json-petani', 'UserInfoController@jsonPetani')->name('json.petani');
+Route::get('json-petani/{id}', 'UserInfoController@jsonPetaniDetail')->name('json.petani.detail');
 
 Route::resource('kelompok-tani', KelompokTaniController::class);
 Route::get('json-kelompok-tani', 'KelompokTaniController@jsonKelompokTani')->name('json.kelompok.tani');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAturanKualitasKomoditasTable extends Migration
+class CreateVerifikasiKualitasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,17 @@ class CreateAturanKualitasKomoditasTable extends Migration
      */
     public function up()
     {
-        Schema::create('aturan_kualitas_komoditas', function (Blueprint $table) {
+        Schema::create('verifikasi_kualitas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('aturan_kualitas_id')->constrained();
-            
             $table->foreignId('komoditas_id')->constrained();
+            $table->double('warna');
+            $table->double('seragam');
+            $table->double('panjang');
+            $table->double('pangkal');
+            $table->double('kotor');
+            $table->double('busuk');
+            $table->integer('total_poin');
+            $table->string('mutu');
             $table->timestamps();
         });
     }
@@ -29,6 +35,6 @@ class CreateAturanKualitasKomoditasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aturan_kualitas_komoditas');
+        Schema::dropIfExists('verifikasi_kualitas');
     }
 }

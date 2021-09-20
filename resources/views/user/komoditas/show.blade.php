@@ -132,7 +132,7 @@
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
-                                @else                                                       {{-- STATUS KOMODITAS MENUNGGU/MASUK GUDANG --}}
+                                @elseif($komoditas->status_pengajuan == 3)                                                       {{-- STATUS KOMODITAS MASUK GUDANG --}}
                                     <br>
                                     <h4>Penggudangan</h4>
                                     
@@ -163,7 +163,7 @@
                                     </div>
                                 @endif
                             @elseif(Auth::user()->role_id == 1)         {{-- PETANI --}}
-                                @if ($komoditas->status_pengajuan != 1) {{-- STATUS KOMODITAS MENUNGGU/MASUK GUDANG --}}
+                                @if (!in_array($komoditas->status_pengajuan,[1,2])) {{-- STATUS KOMODITAS MASUK GUDANG --}}
                                     <br>
                                     <h4>Penggudangan</h4>
                                     

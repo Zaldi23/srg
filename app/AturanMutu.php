@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AturanKualitas extends Model
+class AturanMutu extends Model
 {
-    protected $guarded  = [];
+    //
 }

@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AturanKualitasSeeder::class,
+            AturanMutuSeeder::class,
             KecamatanSeeder::class,
             DesaSeeder::class,
             KategoriKomoditasSeeder::class,

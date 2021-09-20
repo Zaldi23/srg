@@ -26,7 +26,10 @@ class HomeController extends Controller
                 return view('user.index');
                 break;
             case 2: //LPK
-                # code...
+                $totalKomoditas = Komoditas::where('status_pengajuan',3)->where('status_uji_kualitas',1)->count();
+                return view('user.index',compact(
+                    'totalKomoditas'
+                ));
                 break;
             case 3: //PENGELOLA GUDANG
                 $totalKomoditas = Komoditas::all()->count();

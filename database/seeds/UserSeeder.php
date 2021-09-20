@@ -16,6 +16,13 @@ class UserSeeder extends Seeder
             'role' => 3,
         ],
         [
+            'name' => 'lpk',
+            'username' => 'lpk',
+            'email' => 'lpk@gmail.com',
+            'password' => 'janganlupa',
+            'role' => 2,
+        ],
+        [
             'name' => 'irfan',
             'username' => 'irfan',
             'email' => 'irfan@gmail.com',

@@ -23,8 +23,8 @@ class Komoditas extends Model
         return $this->belongsTo(Gudang::class);
     }
 
-    public function aturan_kualitas()
+    public function verifikasi_kualitas()
     {
-        return $this->belongsToMany(AturanKualitas::class);
+        return $this->hasOne(VerifikasiKualitas::class);
     }
 }

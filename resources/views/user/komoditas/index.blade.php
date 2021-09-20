@@ -86,7 +86,189 @@
                     {{-- End Modal Hapus --}}
                     @break
                 @case(2)
-                    LPK
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-info">
+                                    <div class="card-header">
+                                        <h3 class="card-title">List Komoditas Cabai Mengajukan Uji Kualitas</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table id="tabel_komoditas" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Nama Tani</th>
+                                                    <th>Jenis Cabai</th>
+                                                    <th>Kuantitas (Kg)</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Modal AKSI --}}
+                    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <form action="#" method="POST" id="form-aksi">
+                                    @csrf
+                                    <div class="modal-header">
+                                        <span id="modal_title"></span>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Keseragaman Warna</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="warna" id="warna95" value="95">
+                                                        <label class="form-check-label" for="warna95">
+                                                          Merah > 94%
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="warna" id="warna94" value="94">
+                                                        <label class="form-check-label" for="warna94">
+                                                          < 94%
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Keseragaman</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="seragam" id="seragam98" value="98">
+                                                        <label class="form-check-label" for="seragam98">
+                                                          Seragam => 98%
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="seragam" id="seragam96" value="96">
+                                                        <label class="form-check-label" for="seragam96">
+                                                          Seragam 96% - 97%
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="seragam" id="seragam95" value="95">
+                                                        <label class="form-check-label" for="seragam95">
+                                                          Seragam <= 95%
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="panjang">Panjang buah</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="panjang" id="panjang12" value="12">
+                                                        <label class="form-check-label" for="panjang12">
+                                                          > 11 cm
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="panjang" id="panjang9" value="9">
+                                                        <label class="form-check-label" for="panjang9">
+                                                          9-11 cm
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="panjang" id="panjang8" value="8">
+                                                        <label class="form-check-label" for="panjang8">
+                                                          < 9 cm
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="pangkal">Garis tengah pangkal</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="pangkal" id="pangkal3" value="1.4">
+                                                        <label class="form-check-label" for="pangkal3">
+                                                          > 1,3 cm
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="pangkal" id="pangkal2" value="1.0">
+                                                        <label class="form-check-label" for="pangkal2">
+                                                          1,0-1,3 cm
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="pangkal" id="pangkal1" value="0.9">
+                                                        <label class="form-check-label" for="pangkal1">
+                                                          < 1,0 cm
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="kotor">Kadar kotoran</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="kotor" id="kotor1" value="1">
+                                                        <label class="form-check-label" for="kotor1">
+                                                          1%
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="kotor" id="kotor2" value="2">
+                                                        <label class="form-check-label" for="kotor2">
+                                                          2%
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="kotor" value="kotor3" id="3">
+                                                        <label class="form-check-label" for="kotor3">
+                                                          3%
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="busuk">Tingkat kerusakan dan busuk</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="busuk" value="0" id="busuk0">
+                                                        <label class="form-check-label" for="busuk0">
+                                                          0%
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="busuk" value="1" id="busuk1">
+                                                        <label class="form-check-label" for="busuk1">
+                                                          1%
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="busuk" id="busuk2" value="2">
+                                                        <label class="form-check-label" for="busuk2">
+                                                          2%
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                    
+                                    </div>
+                                    <div class="modal-footer" id="action_row">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Tutup</button>
+                                        <button class="btn btn-primary" type="submit">Cek kualitas</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- End Modal AKSI --}}
                     @break
                 @case(3)
                     <div class="container-fluid">
@@ -215,7 +397,35 @@
             </script>
             @break
         @case(2))               {{-- LPK --}}
-            
+            <script>
+                $(document).ready(function(){
+                    var tabel_komoditas = $("#tabel_komoditas").DataTable({
+                        bAutoWidth: true,
+                        // processing: true,
+                        serverSide: true,
+                        ajax: "{{ route('json.komoditas') }}",
+                        
+                        columns: [
+                            {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false},
+                            {data: 'user_info.nama', name: 'user_info.nama'},
+                            {data: 'kategori_komoditas_detail.keterangan', name: 'kategori_komoditas_detail.keterangan'},
+                            {data: 'kuantitas', name: 'kuantitas'},
+                            {data: 'action', name: 'action', orderable: false, searchable: false},
+                        ]
+                    });
+
+                    $('body').on('click', '.aksi', function(){
+                        $("#modalAdd").modal("show");
+                        $("#form-add").trigger('reset');
+                        var id = this.id;
+                        console.log(id);
+                        var url = "{{route('komoditas.uji', '')}}"+"/"+id;
+                        $('#form-aksi').attr('action', url);
+                        $('#form-aksi').trigger('reset');
+                        $('#action_row').show();
+                    });
+                });
+            </script>
             @break
         @case(3))                {{-- PGUDANG --}}
             <script>
@@ -235,7 +445,7 @@
                         ]
                     });
 
-                    $('body').on('click', '.hapus', function(){
+                    $('body').on('click', '.aksi', function(){
                         var id = this.id;
                         console.log(id);
                         var url = "{{route('komoditas.destroy', '')}}"+"/"+id;
