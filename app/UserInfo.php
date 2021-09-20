@@ -42,4 +42,6 @@ class UserInfo extends Model
     {
         return $this->belongsTo(KelompokTani::class);
     }
+
+    
 }
