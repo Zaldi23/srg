@@ -1,7 +1,7 @@
 @extends('user.partials.master')
 
 @section('title')
-    Komoditas
+    {{-- Komoditas --}}
 @endsection
 
 @section('content')

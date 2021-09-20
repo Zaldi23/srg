@@ -99,6 +99,7 @@
                                 <a href="{{route('gudang.create')}}" class="btn btn-sm btn-success">+ Tambah Gudang</a>
                             </div>
                             <br>
+                            <br>
                         </div>
 
                         <div class="row">

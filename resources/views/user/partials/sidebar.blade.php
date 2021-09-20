@@ -42,8 +42,24 @@
                 @case(3)                    {{-- PENGELOLA GUDANG --}}
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
+                            <a href="{{route('komoditas.index')}}" class="nav-link">
+                                <i class="nav-icon fa fa-upload"></i>
+                                <p>
+                                    Komoditas
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('petani.index')}}" class="nav-link">
+                                <i class="nav-icon fa fa-user"></i>
+                                <p>
+                                    Petani
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('kecamatan.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fa fa-map"></i>
                                 <p>
                                     Kecamatan
                                 </p>
@@ -51,7 +67,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('desa.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fa fa-home"></i>
                                 <p>
                                     Desa
                                 </p>
@@ -59,7 +75,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('gudang.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fa fa-archive"></i>
                                 <p>
                                     Gudang
                                 </p>
@@ -67,31 +83,15 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('kelompok-tani.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fa fa-users"></i>
                                 <p>
                                     Kelompok Tani
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('petani.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Petani
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('komoditas.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Komoditas
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{{route('jenis-cabai.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fa fa-book"></i>
                                 <p>
                                     Jenis Cabai
                                 </p>

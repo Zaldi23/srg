@@ -99,6 +99,7 @@
                                 <a href="{{route('kelompok-tani.create')}}" class="btn btn-sm btn-success">+ Tambah Kelompok Tani</a>
                             </div>
                             <br>
+                            <br>
                         </div>
 
                         <div class="row">

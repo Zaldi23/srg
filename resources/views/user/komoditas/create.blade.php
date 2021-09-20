@@ -1,7 +1,7 @@
 @extends('user.partials.master')
 
 @section('title')
-    Komoditas
+    {{-- Komoditas --}}
 @endsection
 
 @section('content')
@@ -91,7 +91,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Ajukan</button>
                             </div>
                         </form>
                     </div>

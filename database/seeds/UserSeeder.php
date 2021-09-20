@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
         collect($this->data)
             ->map(function (array $data) {
                 $role = Role::findOrFail($data['role']);
-                
+
                 $user = new User(
                     [
                         'name' => $data['name'],
@@ -54,7 +54,6 @@ class UserSeeder extends Seeder
                 );
                 $user->role()->associate($role);
                 $user->save();
-            })
-        ;
+            });
     }
 }

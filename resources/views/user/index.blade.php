@@ -19,7 +19,7 @@
                                     <p>Komoditas yang diajukan</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fa fa-archive"></i>
+                                    <i class="fa fa-upload"></i>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                     <p>Komoditas yang menunggu</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fa fa-user"></i>
+                                    <i class="fa fa-users"></i>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                     <p>Komoditas disetujui</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fa fa-map"></i>
+                                    <i class="fa fa-check-circle"></i>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-5 col-6">
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
@@ -72,7 +72,7 @@
                                     <p>Komoditas yang mengajukan uji kualitas</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fa fa-archive"></i>
+                                    <i class="fa fa-envelope"></i>
                                 </div>
                                 <a href="{{route('komoditas.index')}}" id="url_komoditas_index" class="small-box-footer">Info Selanjutnya <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
@@ -90,10 +90,10 @@
                                 <div class="inner">
                                     <h3 id="total_komoditas">{{$totalKomoditas}}</h3>
                         
-                                    <p>Komoditas yang diajukan petani</p>
+                                    <p>Komoditas Petani</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fa fa-archive"></i>
+                                    <i class="fa fa-upload"></i>
                                 </div>
                                 <a href="{{route('komoditas.index')}}" id="url_komoditas_index" class="small-box-footer">Info Selanjutnya <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
@@ -177,7 +177,7 @@
                                     <p>Kelompok Tani</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fa fa-user"></i>
+                                    <i class="fa fa-users"></i>
                                 </div>
                                 <a href="{{route('kelompok-tani.index')}}" id="url_kelompok_tani_index" class="small-box-footer">
                                     Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
@@ -194,7 +194,7 @@
                                     <p>Jenis Cabai</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fa fa-map"></i>
+                                    <i class="fa fa-book"></i>
                                 </div>
                                 <a href="{{route('jenis-cabai.index')}}" id="url_jenis_cabai_index" class="small-box-footer">
                                     Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
