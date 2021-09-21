@@ -4,7 +4,7 @@
     <section class="content">
         <div class="container-fluid">
             @if (Session::has('alert'))
-                <div class="row alert alert-secondary alert-dismissible fade show" role="alert">
+                <div class="row alert alert-success alert-dismissible fade show" role="alert">
                     {{Session::get('alert')}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
