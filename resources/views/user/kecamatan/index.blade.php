@@ -17,6 +17,17 @@
                     @break
                 @case(3)
                     <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-7">
+                                <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                                </nav>
+                            </div>
+                            <div class="col-lg-6 col-5 text-right">
+                                <a class="btn btn-sm btn-success" id="tambah-kecamatan">+ Tambah Kecamatan</a>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="card card-info">
@@ -42,6 +53,37 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Modal Tambah Jenis Cabai --}}
+                    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <form action="#" method="POST" id="form-tambah">
+                                    @csrf
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Tambah Kecamatan</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="nama_kecamatan">Nama kecamatan</label>
+                                                    <input class="form-control" type="nama_kecamatan" id="nama_kecamatan" name="nama_kecamatan" placeholder="Nama Kecamatan">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer" id="action_row">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary" type="submit">Tambah</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- End Modal Tambah Jenis Cabai --}}
                     @break
                 @default
                     
@@ -77,6 +119,15 @@
                     {data: 'nama_kecamatan', name: 'nama_kecamatan'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
+            });
+
+            $('body').on('click', '#tambah-kecamatan', function(){
+                $('#modalAdd').modal('show');
+                // var url = "{{route('komoditas.destroy', '')}}"+"/"+id;
+                var url = "{{route('kecamatan.store')}}";
+                $('#form-tambah').attr('action', url);
+                $('#form-tambah').trigger('reset');
+                $('#action_row').show();
             });
         });
     </script>

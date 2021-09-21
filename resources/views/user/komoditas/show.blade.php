@@ -130,8 +130,38 @@
                                         <!-- /.card-body -->
                                         <div class="card-footer">
                                             <button type="submit" class="btn btn-primary">Submit</button>
+                                            <a class="btn btn-danger" id="tolak">Tolak</a>
                                         </div>
                                     </form>
+
+                                    {{-- Modal Tolak --}}
+                                    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <form action="{{route('komoditas.tolak',$komoditas->id)}}" method="POST" id="form-tolak">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Konfirmasi</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <p id="kategori">Apakah anda akan menolak komoditas {{$komoditas->kategori_komoditas_detail->keterangan}} dengan kuantitas {{$komoditas->kuantitas}} yang diajukan {{$komoditas->user_info->nama}}</p>
+                                                            </div>
+                                                        </div>                    
+                                                    </div>
+                                                    <div class="modal-footer" id="action_row">
+                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                                        <button class="btn btn-primary tolak" type="submit">Tolak</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- End Modal Tolak --}}
                                 @elseif($komoditas->status_pengajuan == 3)                                                       {{-- STATUS KOMODITAS MASUK GUDANG --}}
                                     <br>
                                     <h4>Penggudangan</h4>
@@ -209,4 +239,14 @@
                 <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>
+@endsection
+
+@section('datatableScript')
+<script>
+    document.getElementById("tolak").addEventListener('click',function () {
+        $('#form-tolak').trigger('reset');
+        $('#action_row').show();
+        $('#modalAdd').modal('show');
+    });
+</script>
 @endsection

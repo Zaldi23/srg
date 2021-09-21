@@ -13,6 +13,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 use Yajra\DataTables\DataTables;
 
 class KomoditasController extends Controller
@@ -93,6 +94,20 @@ class KomoditasController extends Controller
 
         return redirect()->back()->with('alert','Komoditas berhasil diuji.');
     }
+
+    public function tolakKomoditas(Request $request, $id)
+    {
+        try {
+            DB::transaction(function ()use($id) {
+                $komoditas = Komoditas::findOrFail($id);
+                $komoditas->status_pengajuan = 2;
+                $komoditas->save();
+            });
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('alert','Gagal');
+        }
+        return redirect()->back()->with('alert','Penolakan komoditas berhasil dilakukan');
+    }
     
     public function jsonKomoditas()
     {
@@ -100,7 +115,7 @@ class KomoditasController extends Controller
             case 1:                         //PETANI
                 $user_info_id = Auth::user()->user_info->id;
 
-                return DataTables::of(Komoditas::where('user_info_id',$user_info_id)->with('kategori_komoditas_detail','verifikasi_kualitas')->get())
+                return DataTables::of(Komoditas::where('user_info_id',$user_info_id)->with('kategori_komoditas_detail','verifikasi_kualitas')->where('status',true)->get())
                     ->addIndexColumn()
                     ->addColumn('status_pengajuan', function($row){
                         switch ($row->status_pengajuan) {
@@ -180,7 +195,7 @@ class KomoditasController extends Controller
                     ->make(true);
                 break;
             case 2:                         //LPK
-                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('status_pengajuan',3))
+                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('status_pengajuan',3)->where('status', true))
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                         $id = $row->id;
@@ -215,7 +230,7 @@ class KomoditasController extends Controller
                     ->make(true);
                 break;
             case 3:                         //PENGELOLA GUDANG
-                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info'))
+                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('status',true))
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                         $id = $row->id;
@@ -223,7 +238,7 @@ class KomoditasController extends Controller
                         if ($row->status_pengajuan == 1) {
                             $action = '
                                 <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
-                                <a class="btn btn-xs btn-danger hapus" id="'.$id.'">Hapus</a>
+                                <a class="btn btn-xs btn-danger hapus" id="'.$id.'">hapus</a>
                             ';
                         } elseif($row->status_pengajuan == 2) {
                             $action = '
@@ -248,8 +263,29 @@ class KomoditasController extends Controller
                         
                         return $action; 
                     })
+                    ->addColumn('status_komoditas',function ($row){
+                        if ($row->status_pengajuan == 1) {
+                            $action = '
+                                <a class="btn btn-xs btn-info">Belum diperiksa</a>
+                            ';
+                        } elseif($row->status_pengajuan == 2) {
+                            $action = '
+                            <a class="btn btn-xs btn-warnign">Ditolak</a>
+                            ';
+                        }elseif($row->status_pengajuan == 3){
+                            $action = '
+                                <a class="btn btn-xs btn-success">Disetujui</a>
+                            ';
+                        }else{
+                            $action = '
+                                <a class="btn btn-xs btn-danger">Unidentified</a>
+                            ';
+                        }
+                        return $action;
+                    })
                     ->rawColumns([
-                        'action'
+                        'action',
+                        'status_komoditas'
                     ])
                     ->make(true);
                 break;

@@ -276,7 +276,7 @@
                     </div>
                     {{-- End Modal AKSI --}}
                     @break
-                @case(3)
+                @case(3)                {{--PEGUDANG--}}
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
@@ -293,6 +293,7 @@
                                                     <th>Nama Tani</th>
                                                     <th>Jenis Cabai</th>
                                                     <th>Kuantitas (Kg)</th>
+                                                    <th>Status</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -448,11 +449,12 @@
                             {data: 'user_info.nama', name: 'user_info.nama'},
                             {data: 'kategori_komoditas_detail.keterangan', name: 'kategori_komoditas_detail.keterangan'},
                             {data: 'kuantitas', name: 'kuantitas'},
+                            {data: 'status_komoditas', name: 'status_komoditas'},
                             {data: 'action', name: 'action', orderable: false, searchable: false},
                         ]
                     });
 
-                    $('body').on('click', '.aksi', function(){
+                    $('body').on('click', '.hapus', function(){
                         var id = this.id;
                         console.log(id);
                         var url = "{{route('komoditas.destroy', '')}}"+"/"+id;

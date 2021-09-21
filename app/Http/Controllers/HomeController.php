@@ -32,7 +32,7 @@ class HomeController extends Controller
                 ));
                 break;
             case 3: //PENGELOLA GUDANG
-                $totalKomoditas = Komoditas::all()->count();
+                $totalKomoditas = Komoditas::where('status',true)->count();
                 $totalPetani = UserInfo::all()->count();
                 $totalKecamatan = Kecamatan::all()->count();
                 $totalDesa = Desa::all()->count();

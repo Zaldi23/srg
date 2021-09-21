@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Desa;
 use App\Kecamatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 class KecamatanController extends Controller
@@ -54,12 +55,31 @@ class KecamatanController extends Controller
 
     public function create()
     {
-        //
+        return redirect()->back();
     }
 
     public function store(Request $request)
     {
-        //
+        request()->validate(
+            [
+                'nama_kecamatan' => 'required',
+            ],
+            [
+                'required' => 'Harap isi',
+            ]
+        );
+        
+        try {
+            DB::transaction(function () use($request) {
+                $kecamatan = new Kecamatan();
+                $kecamatan->nama_kecamatan = $request->nama_kecamatan;
+                $kecamatan->save(); 
+            });
+        } catch (\Throwable $th) {
+            return redirect()->route('kecamatan.index')->with('alert','Pembuatan kecamatan '.$request->nama_kecamatan.' gagal');
+        }
+
+        return redirect()->route('kecamatan.index')->with('alert','Pembuatan kecamatan '.$request->nama_kecamatan.' berhasil');
     }
 
     public function show($id)

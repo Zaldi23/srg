@@ -37,6 +37,7 @@ Route::get('pengelola-gudang-info', 'UserInfoController@jsonInformasiUntukPengel
 Route::get('beranda', [HomeController::class, 'beranda'])->name('beranda');
 
 Route::resource('komoditas', KomoditasController::class);
+Route::post('tolak-komoditas/{id}', 'KomoditasController@tolakKomoditas')->name('komoditas.tolak');
 Route::post('komoditas-penggudangan', 'KomoditasController@penggudangan')->name('komoditas.penggudangan');
 Route::get('komoditas/get-detail-kategori/{id}', 'KomoditasController@getDetailKategoriKomoditas');
 Route::get('komoditas/cetak-surat-mutu/{id}', 'KomoditasController@cetakSuratKualitas');
