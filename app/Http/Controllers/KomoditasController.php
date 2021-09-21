@@ -169,6 +169,7 @@ class KomoditasController extends Controller
                         } elseif($row->status_pengajuan == 2) {
                             $action = '
                                 <a class="btn btn-xs btn-secondary" href="komoditas/'.$id.'">Detail</a>
+                                <a class="btn btn-xs btn-danger hapus" id="'.$id.'">Hapus</a>
                             ';
                         }elseif($row->status_pengajuan == 3){
                             if ($row->status_uji_kualitas == 2) {
@@ -459,21 +460,20 @@ class KomoditasController extends Controller
             $gudang->save();
 
             $komoditas->status_pengajuan = 3;
+            
+            $komoditas->harga_jual = $request->harga_jual;
+            $komoditas->status_komoditas_di_gudang = 2;
+            $komoditas->gudang()->associate($gudang);
+            $saved = $komoditas->save();
+            if ($saved) {
+                return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' berhasil masuk gudang');
+            }
+    
+            return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' gagal diproses');
+            
         }else{
-            $komoditas = Komoditas::findOrFail($request->komoditas);
-            $komoditas->status_pengajuan = 3;
+            return redirect()->back()->with('alert','gudang dalam keadaan penuh');
         }
-
-        $komoditas->harga_jual = $request->harga_jual;
-        $komoditas->status_komoditas_di_gudang = 2;
-        $komoditas->gudang()->associate($gudang);
-        $saved = $komoditas->save();
-
-        if ($saved) {
-            return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' berhasil masuk gudang');
-        }
-
-        return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' gagal diproses');
     }
 
     public function manage(Request $request)

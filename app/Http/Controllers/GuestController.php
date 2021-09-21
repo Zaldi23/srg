@@ -14,7 +14,7 @@ class GuestController extends Controller
         if ($user) {
             return redirect()->route('beranda');
         }
-        $komoditas = Komoditas::where('status_pengajuan',3)->where('status_uji_kualitas',2)->get();
+        $komoditas = Komoditas::where('status_pengajuan',3)->where('status_uji_kualitas',2)->where('status',true)->get();
         return view('toko.index',compact(
             'komoditas'
         ));

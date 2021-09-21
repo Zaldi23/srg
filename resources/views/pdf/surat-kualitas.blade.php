@@ -33,6 +33,21 @@
 			</tr>
 		</tbody>
 	</table>
+	<table>
+		<tbody>
+			<tr>
+				<td></td>
+				<td>Mengetahui</td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>Irfan Agus Tiawan</td>
+			</tr>
+		</tbody>
+	</table>
  
 </body>
 </html>
