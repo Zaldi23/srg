@@ -34,7 +34,7 @@
                                     <p>Komoditas yang ditolak</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fa fa-users"></i>
+                                    <i class="fa fa-times-circle"></i>
                                 </div>
                             </div>
                         </div>

@@ -36,7 +36,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('petani.detail')}}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fas fa-address-card"></i>
                                 <p>
                                     Akun
                                 </p>
