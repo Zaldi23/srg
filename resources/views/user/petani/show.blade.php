@@ -3,14 +3,6 @@
 @section('content')
     <section class="content">
         <div class="container-fluid">
-            @if (Session::has('alert'))
-                <div class="row alert alert-secondary alert-dismissible fade show" role="alert">
-                    {{Session::get('alert')}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
             @switch(Auth::user()->role_id)
                 @case(1)                {{-- PETANI --}}
                     {{-- <div class="row align-items-center">
@@ -90,6 +82,28 @@
                     @break
                 @case(3)
                     <div class="container-fluid">
+                        @if (Session::has('alert'))
+                            <div class="row alert alert-success alert-dismissible fade show" role="alert">
+                                {{Session::get('alert')}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-7">
+                                <h4>Detail Akun</h4>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-7">
+                                email : {{$userInfo->user->email}}
+                            </div>
+                            <div class="col-lg-6 col-5 text-right">
+                                <a class="btn btn-sm btn-warning" id="reset-password">Reset Kata Sandi</a>
+                            </div>
+                        </div>
+                        <br>
                         <div class="row">
                             <div class="col-12">
                                 <div class="card card-info">
@@ -120,12 +134,11 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Modal Hapus --}}
+                    {{-- Modal REset Pass --}}
                     <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
-                                <form action="#" method="POST" id="form-hapus">
-                                    @method('DELETE')
+                                <form action="{{route('petani.reset-password',$userInfo->user->id)}}" method="POST" id="form-reset">
                                     @csrf
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">Konfirmasi</h5>
@@ -136,19 +149,19 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <p id="kategori"></p>
+                                                <p id="kategori">Apakah anda yakin mereset ulang kata sandi ?</p>
                                             </div>
                                         </div>                    
                                     </div>
                                     <div class="modal-footer" id="action_row">
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                                        <button class="btn btn-primary" type="submit">Hapus</button>
+                                        <button class="btn btn-primary" type="submit">Iya</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    {{-- End Modal Hapus --}}
+                    {{-- End Modal REset Pass --}}
                     @break
                 @default
                     
@@ -196,6 +209,12 @@
                             {data: 'harga_jual', name: 'harga_jual'},
                             {data: 'action', name: 'action', orderable: false, searchable: false},
                         ]
+                    });
+
+                    $('body').on('click', '#reset-password', function(){
+                        $('#modalAdd').modal('show');
+                        $('#form-reset').trigger('reset');
+                        $('#action_row').show();
                     });
                 });
             </script>

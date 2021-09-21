@@ -75,4 +75,18 @@ class UserController extends Controller
         }
         return redirect()->back()->with('alert','Update akun petani berhasil');
     }
+
+    public function resetPassword(Request $request, $id)
+    {
+        try {
+            DB::transaction(function () use($id) {
+                $user = User::findOrFail($id);
+                $user->password = Hash::make('petanicabai');
+                $user->save();
+            });
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('alert','Reset password gagal dilakukan');
+        }
+        return redirect()->back()->with('alert','Reset password berhasil dilakukan');
+    }
 }

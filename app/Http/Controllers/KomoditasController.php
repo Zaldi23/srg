@@ -239,7 +239,6 @@ class KomoditasController extends Controller
                         if ($row->status_pengajuan == 1) {
                             $action = '
                                 <a class="btn btn-xs btn-info" href="komoditas/'.$id.'">Detail</a>
-                                <a class="btn btn-xs btn-danger hapus" id="'.$id.'">hapus</a>
                             ';
                         } elseif($row->status_pengajuan == 2) {
                             $action = '

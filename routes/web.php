@@ -67,6 +67,7 @@ Route::get('json-kecamatan', 'KecamatanController@jsonKecamatan')->name('json.ke
 Route::get('json-desa-by-kecamatan/{id}', 'KecamatanController@jsonDesaByKecamatan')->name('json.desa.by.kecamatan');
 
 Route::post('petani-create', 'UserController@createPetani')->name('petani.create');
+Route::post('petani-reset-password/{id}', 'UserController@resetPassword')->name('petani.reset-password');
 Route::get('akun', 'UserController@showPetani')->name('petani.detail');
 Route::put('akun/{id}', 'UserController@updatePetani')->name('petani.update');
 
