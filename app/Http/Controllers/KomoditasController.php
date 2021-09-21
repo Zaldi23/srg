@@ -204,8 +204,9 @@ class KomoditasController extends Controller
                                 <a class="btn btn-xs btn-secondary aksi" id="'.$id.'">Aksi</a>
                             ';
                         } else {
+                            $url = route('komoditas.show',$row->id);
                             $action = '
-                                <a class="btn btn-xs btn-info detail" id="'.$id.'">Detail</a>
+                                <a class="btn btn-xs btn-info detail" href="'.$url.'">Detail</a>
                             ';
                         }
                         return $action; 

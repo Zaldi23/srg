@@ -68,6 +68,20 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            @if ($komoditas->status_uji_kualitas == 2)
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="kuantitas">Mutu</label>
+                                        <select disabled name="kategori" id="kategori" class="form-control" style="width: 100%;">
+                                            <option selected="selected" disabled>
+                                                {{$komoditas->verifikasi_kualitas->mutu}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            @endif
 
                             @if (Auth::user()->role_id == 3)                                {{-- KALO PENGELOLA GUDANG --}}
                                 @if ($komoditas->status_pengajuan == 1)                     {{-- STATUS KOMODITAS BELUM DIAPA-APAKAN OLEH PGUDANG --}}
