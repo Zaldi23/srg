@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Desa;
+use App\Kecamatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 class DesaController extends Controller
@@ -34,17 +36,41 @@ class DesaController extends Controller
 
     public function index()
     {
-        return view('user.desa.index');
+        $kecamatan = Kecamatan::all();
+        return view('user.desa.index',compact(
+            'kecamatan'
+        ));
     }
 
     public function create()
     {
-        //
+        return redirect()->back();
     }
 
     public function store(Request $request)
     {
-        //
+        request()->validate(
+            [
+                'nama_desa' => 'required',
+                'kecamatan' => 'required|numeric',
+            ],
+            [
+                'required' => 'Harap isi',
+                'numeric' => 'tidak valid'
+            ]
+        );
+        
+        try {
+            DB::transaction(function ()use($request) {
+                $desa = new Desa();
+                $desa->nama_desa = $request->nama_desa;
+                $desa->kecamatan_id = $request->kecamatan;
+                $desa->save();
+            });
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('alert','Desa gagal dibuat');
+        }
+        return redirect()->back()->with('alert','Desa berhasil dibuat');
     }
 
     public function show($id)

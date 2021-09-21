@@ -15,17 +15,22 @@ class UserInfo extends Model
 
     public function komoditas_disetujui()
     {
-        return $this->komoditas()->where('status_pengajuan',3);
+        return $this->komoditas()->where('status_pengajuan',3)->where('status', true);
     }
 
     public function komoditas_menunggu()
     {
-        return $this->komoditas()->where('status_pengajuan',2);
+        return $this->komoditas()->where('status_pengajuan',2)->where('status', true);
     }
 
     public function komoditas_diajukan()
     {
-        return $this->komoditas()->where('status_pengajuan',1);
+        return $this->komoditas()->where('status_pengajuan',1)->where('status', true);
+    }
+
+    public function komoditas_dihapus()
+    {
+        return $this->komoditas()->where('status', false);
     }
 
     public function user()

@@ -8,7 +8,7 @@
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-4 col-6">
+                        <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-4 col-6">
+                        <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-4 col-6">
+                        <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
@@ -55,6 +55,21 @@
                             </div>
                         </div>
                         <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>
+                                        {{count(Auth::user()->user_info->komoditas_dihapus)}}
+                                    </h3>
+                        
+                                    <p>Komoditas dihapus</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.row -->
                 </div>
