@@ -90,6 +90,17 @@
                     {{-- @break --}}
                 @case(3)
                     <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-7">
+                                <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                                </nav>
+                            </div>
+                            <div class="col-lg-6 col-5 text-right">
+                                <a class="btn btn-sm btn-success" id="tambah-petani">+ Tambah Petani</a>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="card card-info">
@@ -119,6 +130,45 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Modal Tambah Petani --}}
+                    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <form action="#" method="POST" id="form-tambah">
+                                    @csrf
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Tambah Akun Petani</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="email">Email</label>
+                                                    <input class="form-control" type="email" id="email" name="email" placeholder="Email">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="password">Kata Sandi</label>
+                                                    <input class="form-control" type="password" id="password" name="password" placeholder="Kata sandi">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="name">Nama Petani</label>
+                                                    <input class="form-control" type="text" id="name" name="name" placeholder="Nama Petani" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer" id="action_row">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary" type="submit">Buat</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- End Modal Tambah Petani --}}
                     @break
                 @default
                     
@@ -153,12 +203,21 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false},
                     {data: 'nama', name: 'nama'},
-                    {data: 'luas_lahan', name: 'luas_lahan'},
-                    {data: 'desa.kecamatan.nama_kecamatan', name: 'desa.kecamatan.nama_kecamatan'},
-                    {data: 'desa.nama_desa', name: 'desa.nama_desa'},
-                    {data: 'kelompok_tani.keterangan', name: 'kelompok_tani.keterangan'},
+                    {data: 'luaslahan', name: 'luaslahan'},
+                    {data: 'kecamatanpetani', name: 'kecamatanpetani'},
+                    {data: 'desapetani', name: 'desapetani'},
+                    {data: 'kelompokpetani', name: 'kelompokpetani'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
+            });
+
+            $('body').on('click', '#tambah-petani', function(){
+                $('#modalAdd').modal('show');
+                // var url = "{{route('komoditas.destroy', '')}}"+"/"+id;
+                var url = "{{route('petani.create')}}";
+                $('#form-tambah').attr('action', url);
+                $('#form-tambah').trigger('reset');
+                $('#action_row').show();
             });
         });
     </script>

@@ -91,7 +91,7 @@ class KomoditasController extends Controller
             $verifikasiKualitas->save();
         });
 
-        dd($request,$poinWarna, $poinSeragam, $poinPanjang, $poinPangkal, $poinKotor, $poinBusuk, $totalPoin, $mutu);
+        return redirect()->back()->with('alert','Komoditas berhasil diuji.');
     }
     
     public function jsonKomoditas()
@@ -180,19 +180,37 @@ class KomoditasController extends Controller
                     ->make(true);
                 break;
             case 2:                         //LPK
-                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('status_pengajuan',3)->where('status_uji_kualitas',1))
+                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('status_pengajuan',3))
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                         $id = $row->id;
-
-                        $action = '
-                            <a class="btn btn-secondary aksi" id="'.$id.'">Aksi</a>
-                        ';
-                        
+                        if ($row->status_uji_kualitas == 1) {
+                            $action = '
+                                <a class="btn btn-xs btn-secondary aksi" id="'.$id.'">Aksi</a>
+                            ';
+                        } else {
+                            $action = '
+                                <a class="btn btn-xs btn-info detail" id="'.$id.'">Detail</a>
+                            ';
+                        }
+                        return $action; 
+                    })
+                    ->addColumn('mutu', function($row){
+                        $id = $row->id;
+                        if (isset($row->verifikasi_kualitas)) {
+                            $action = '
+                                <a class="btn btn-xs btn-info">'.$row->verifikasi_kualitas->mutu.'</a>
+                            ';
+                        } else {
+                            $action = '
+                                <a class="btn btn-xs btn-warning">Belum diuji</a>
+                            ';
+                        }
                         return $action; 
                     })
                     ->rawColumns([
-                        'action'
+                        'action',
+                        'mutu',
                     ])
                     ->make(true);
                 break;
@@ -374,7 +392,8 @@ class KomoditasController extends Controller
     {
         $id = (int)$id;
         $komoditas = Komoditas::findOrFail($id);
-        $deleted = $komoditas->delete();
+        $komoditas->status = false;
+        $deleted = $komoditas->save();
 
         if ($deleted) {
             return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' berhasil dihapus');

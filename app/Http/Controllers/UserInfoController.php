@@ -22,8 +22,72 @@ class UserInfoController extends Controller
                 ';
                 return $action; 
             })
+            ->addColumn('luaslahan', function($row){
+                if (isset($row->luas_lahan)) {
+                    $action = '
+                        <p>'.$row->luas_lahan.'</p>
+                    ';
+                }else{
+                    $action = '
+                        <button class="btn btn-sm btn-warning">Belum diisi</button>
+                    ';
+                }
+                return $action; 
+            })
+            ->addColumn('kecamatanpetani', function($row){
+                if (isset($row->kecamatan)) {
+                    $action = '
+                        <p>'.$row->kecamatan.'</p>
+                    ';
+                }else{
+                    $action = '
+                        <button class="btn btn-sm btn-warning">Belum diisi</button>
+                    ';
+                }
+                return $action; 
+            })
+            ->addColumn('desapetani', function($row){
+                if (isset($row->desa_id)) {
+                    $action = '
+                        <p>'.$row->desa->nama_desa.'</p>
+                    ';
+                }else{
+                    $action = '
+                        <button class="btn btn-sm btn-warning">Belum diisi</button>
+                    ';
+                }
+                return $action; 
+            })
+            ->addColumn('kecamatanpetani', function($row){
+                if (isset($row->desa->kecamatan->nama_kecamatan)) {
+                    $action = '
+                        <p>'.$row->desa->kecamatan->nama_kecamatan.'</p>
+                    ';
+                }else{
+                    $action = '
+                        <button class="btn btn-sm btn-warning">Belum diisi</button>
+                    ';
+                }
+                return $action; 
+            })
+            ->addColumn('kelompokpetani', function($row){
+                if (isset($row->kelompok_tani->keterangan)) {
+                    $action = '
+                        <p>'.$row->kelompok_tani->keterangan.'</p>
+                    ';
+                }else{
+                    $action = '
+                        <button class="btn btn-sm btn-warning">Belum diisi</button>
+                    ';
+                }
+                return $action; 
+            })
             ->rawColumns([
-                'action'
+                'action',
+                'luaslahan',
+                'kecamatanpetani',
+                'desapetani',
+                'kelompokpetani',
             ])
             ->make(true);
                 

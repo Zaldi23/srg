@@ -53,6 +53,7 @@ Route::resource('kelompok-tani', KelompokTaniController::class);
 Route::get('json-kelompok-tani', 'KelompokTaniController@jsonKelompokTani')->name('json.kelompok.tani');
 Route::get('json-kelompok-tani/{id}', 'KelompokTaniController@jsonKelompokTaniDetail')->name('json.kelompok.tani.detail');
 Route::get('json-kelompok-tani-by-desa/{id}', 'KelompokTaniController@jsonKelompokTaniByDesa')->name('json.kelompok.tani.by.desa');
+Route::get('get-kelompok-tani-by-desa/{id}', 'KelompokTaniController@getKelompokTaniByDesa')->name('get-kelompok-tani-by-desa');
 
 Route::resource('gudang', GudangController::class);
 Route::get('json-gudang', 'GudangController@jsonGudang')->name('json.gudang');
@@ -63,6 +64,10 @@ Route::post('gudang/manage-komoditas', 'KomoditasController@manage')->name('guda
 Route::resource('kecamatan', KecamatanController::class);
 Route::get('json-kecamatan', 'KecamatanController@jsonKecamatan')->name('json.kecamatan');
 Route::get('json-desa-by-kecamatan/{id}', 'KecamatanController@jsonDesaByKecamatan')->name('json.desa.by.kecamatan');
+
+Route::post('petani-create', 'UserController@createPetani')->name('petani.create');
+Route::get('akun', 'UserController@showPetani')->name('petani.detail');
+Route::put('akun/{id}', 'UserController@updatePetani')->name('petani.update');
 
 Route::resource('desa', DesaController::class);
 Route::get('json-desa', 'DesaController@jsonDesa')->name('json.desa');

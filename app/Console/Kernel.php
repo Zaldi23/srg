@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('reject:daily')->everyMinute();
+        $schedule->command('reject:daily')->everyTwoHours();
     }
 
     /**

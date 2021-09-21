@@ -31,7 +31,7 @@
                                     <h3>
                                         {{count(Auth::user()->user_info->komoditas_menunggu)}}
                                     </h3>
-                                    <p>Komoditas yang menunggu</p>
+                                    <p>Komoditas yang ditolak</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-users"></i>

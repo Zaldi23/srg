@@ -29,6 +29,7 @@ class CreateKomoditasTable extends Migration
             $table->unsignedBigInteger('gudang_id')->nullable();
             $table->foreign('gudang_id')->references('id')->on('gudangs');
             $table->integer('status_komoditas_di_gudang')->default(1);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

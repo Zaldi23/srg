@@ -34,6 +34,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('petani.detail')}}" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Akun
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                     @break
                 @case(2)                    {{-- LPK --}}

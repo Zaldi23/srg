@@ -16,10 +16,10 @@ class CreateUserInfosTable extends Migration
         Schema::create('user_infos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('nama');
-            $table->foreignId('desa_id')->constrained();
-            $table->double('luas_lahan');
-            $table->foreignId('kelompok_tani_id')->constrained();
+            $table->string('nama')->nullable();
+            $table->foreignId('desa_id')->nullable()->constrained();
+            $table->double('luas_lahan')->nullable();
+            $table->foreignId('kelompok_tani_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

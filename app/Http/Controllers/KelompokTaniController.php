@@ -11,6 +11,13 @@ use Yajra\DataTables\DataTables;
 
 class KelompokTaniController extends Controller
 {
+    public function getKelompokTaniByDesa($id)
+    {
+        return json_encode(
+            KelompokTani::where('desa_id',$id)->get()
+        );
+    }
+
     public function jsonKelompokTaniByDesa($id)
     {
         return DataTables::of(KelompokTani::with('user_info')->where('desa_id',$id)->get())

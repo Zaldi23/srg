@@ -19,7 +19,11 @@
                             </nav>
                         </div>
                         <div class="col-lg-6 col-5 text-right">
-                            <a href="{{route('komoditas.create')}}" class="btn btn-sm btn-success">+ Tambah Komoditas</a>
+                            @if (isset(Auth::user()->user_info->desa_id))
+                                <a href="{{route('komoditas.create')}}" class="btn btn-sm btn-success">+ Tambah Komoditas</a>
+                            @else
+                                <a href="{{route('petani.detail')}}" class="btn btn-sm btn-info">+ Lengkapi data</a>
+                            @endif
                         </div>
                         <br>
                         <br>
@@ -103,6 +107,7 @@
                                                     <th>Nama Tani</th>
                                                     <th>Jenis Cabai</th>
                                                     <th>Kuantitas (Kg)</th>
+                                                    <th>Mutu</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -229,7 +234,7 @@
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="kotor" value="kotor3" id="3">
+                                                        <input class="form-check-input" type="radio" name="kotor" value="3" id="kotor3">
                                                         <label class="form-check-label" for="kotor3">
                                                           3%
                                                         </label>
@@ -411,6 +416,7 @@
                             {data: 'user_info.nama', name: 'user_info.nama'},
                             {data: 'kategori_komoditas_detail.keterangan', name: 'kategori_komoditas_detail.keterangan'},
                             {data: 'kuantitas', name: 'kuantitas'},
+                            {data: 'mutu', name: 'mutu'},
                             {data: 'action', name: 'action', orderable: false, searchable: false},
                         ]
                     });
