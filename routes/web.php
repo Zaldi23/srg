@@ -73,6 +73,7 @@ Route::resource('desa', DesaController::class);
 Route::get('json-desa', 'DesaController@jsonDesa')->name('json.desa');
 Route::get('get-desa-by-kecamatan/{id}', 'DesaController@getDesaByKecamatan')->name('get-desa-by-kecamatan');
 
-Route::resource('jenis-cabai', JenisCabaiController::class);
+Route::resource('jenis-cabai', KategoriKomoditasDetailController::class);
+Route::get('json-jenis-cabai', 'KategoriKomoditasDetailController@jsonJenisCabai')->name('json.jenis.cabai');
 
 Route::get('gudang-desa/{desa_id}', 'GudangController@getGudangByDesa')->name('gudang.desa');

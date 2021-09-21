@@ -4,17 +4,39 @@ namespace App\Http\Controllers;
 
 use App\KategoriKomoditasDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class KategoriKomoditasDetailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function jsonJenisCabai()
+    {
+        switch (Auth::user()->role_id) {
+            case 3:                         //PENGELOLA GUDANG
+                return DataTables::of(KategoriKomoditasDetail::with('kategori_komoditas')->get())
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $action = '
+                            <a class="btn btn-xs btn-danger hapus" id="'.$row->id.'">Hapus</a>
+                        ';
+                        return $action; 
+                    })
+                    ->rawColumns([
+                        'action'
+                    ])
+                    ->make(true);
+                break;
+            default:
+                Auth::logout();
+                return redirect()->route('login');
+                break;
+        }
+    }
+    
     public function index()
     {
-        //
+        return view('user.jenis-cabai.index');
     }
 
     /**
@@ -35,7 +57,27 @@ class KategoriKomoditasDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate(
+            [
+                'jenis_cabai' => 'required',
+            ],
+            [
+                'required' => 'Harap isi',
+            ]
+        );
+
+        try {
+            DB::transaction(function () use($request){
+              $jenisCabai = new KategoriKomoditasDetail();
+              $jenisCabai->kategori_komoditas_id = 1;
+              $jenisCabai->keterangan = $request->jenis_cabai;
+              $jenisCabai->save();
+            });
+        } catch (\Throwable $th) {
+            return redirect()->route('jenis-cabai.index')->with('alert','Tambah jenis cabai gagal dilakukan');
+        }
+
+        return redirect()->route('jenis-cabai.index')->with('alert','Tambah jenis cabai berhasil');
     }
 
     /**
