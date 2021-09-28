@@ -105,7 +105,7 @@
                                 <div class="inner">
                                     <h3 id="total_komoditas">{{$totalKomoditas}}</h3>
                         
-                                    <p>Komoditas Petani</p>
+                                    <p>Komoditas Petani Desa {{$desa->nama_desa}}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-upload"></i>
@@ -119,7 +119,7 @@
                             <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3 id="total_petani">{{$totalPetani}}</h3>
-                                    <p>Petani Yang Terdaftar</p>
+                                    <p>Petani Yang Terdaftar di Desa {{$desa->nama_desa}}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fa fa-user"></i>
@@ -129,8 +129,37 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3 id="total_gudang">{{$totalGudang}}</h3>
+                                    <p>Gudang yang terdaftar di Desa {{$desa->nama_desa}}</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-archive"></i>
+                                </div>
+                                <a href="{{route('gudang.index')}}" id="url_gudang_index" class="small-box-footer">Info Selanjutnya <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
                         <!-- ./col -->
                         <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3 id="total_kelompok_tani">{{$totalKelompokTani}}</h3>
+                                    <p>Kelompok Tani desa {{$desa->nama_desa}}</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                                <a href="{{route('kelompok-tani.index')}}" id="url_kelompok_tani_index" class="small-box-footer">
+                                    Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        {{-- <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
@@ -145,9 +174,9 @@
                                     Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- ./col -->
-                        <div class="col-lg-3 col-6">
+                        {{-- <div class="col-lg-3 col-6">
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
@@ -162,43 +191,13 @@
                                     Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- ./col -->
                     </div>
                     <!-- /.row -->
         
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3 id="total_gudang">{{$totalGudang}}</h3>
-                        
-                                    <p>Gudang</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-archive"></i>
-                                </div>
-                                <a href="{{route('gudang.index')}}" id="url_gudang_index" class="small-box-footer">Info Selanjutnya <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3 id="total_kelompok_tani">{{$totalKelompokTani}}</h3>
-                                    <p>Kelompok Tani</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-users"></i>
-                                </div>
-                                <a href="{{route('kelompok-tani.index')}}" id="url_kelompok_tani_index" class="small-box-footer">
-                                    Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div>
                         <!-- ./col -->
                         <div class="col-lg-3 col-6">
                             <!-- small box -->
@@ -211,9 +210,6 @@
                                 <div class="icon">
                                     <i class="fa fa-book"></i>
                                 </div>
-                                <a href="{{route('jenis-cabai.index')}}" id="url_jenis_cabai_index" class="small-box-footer">
-                                    Info Selanjutnya <i class="fas fa-arrow-circle-right"></i>
-                                </a>
                             </div>
                         </div>
                     </div>

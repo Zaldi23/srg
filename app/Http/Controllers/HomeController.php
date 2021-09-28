@@ -32,21 +32,21 @@ class HomeController extends Controller
                 ));
                 break;
             case 3: //PENGELOLA GUDANG
-                $totalKomoditas = Komoditas::where('status',true)->count();
-                $totalPetani = UserInfo::all()->count();
-                $totalKecamatan = Kecamatan::all()->count();
-                $totalDesa = Desa::all()->count();
-                $totalGudang = Gudang::all()->count();
-                $totalKelompokTani = KelompokTani::all()->count();
+                $desa = Auth::user()->user_gudang->desa;
+                $totalKomoditas = Komoditas::where('status',true)->where('desa_id',$desa->id)->count();
+                $totalPetani = UserInfo::where('desa_id',$desa->id)->count();
+                // $totalKecamatan = Kecamatan::all()->count();
+                // $totalDesa = Desa::all()->count();
+                $totalGudang = Gudang::where('desa_id',$desa->id)->count();
+                $totalKelompokTani = KelompokTani::where('desa_id',$desa->id)->count();
                 $totalJenisCabai = KategoriKomoditasDetail::all()->count();
                 return view('user.index', compact(
                     'totalKomoditas',
                     'totalPetani',
-                    'totalKecamatan',
-                    'totalDesa',
                     'totalGudang',
                     'totalKelompokTani',
                     'totalJenisCabai',
+                    'desa',
                 ));
                 break;
             default:

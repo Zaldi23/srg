@@ -44,11 +44,14 @@ Route::get('komoditas/cetak-surat-mutu/{id}', 'KomoditasController@cetakSuratKua
 Route::get('json-komoditas', 'KomoditasController@jsonKomoditas')->name('json.komoditas');
 Route::get('json-komoditas/{id}', 'KomoditasController@getKomoditasById');
 Route::post('uji-kualitas-komoditas/{id}', 'KomoditasController@ujiKualitas')->name('komoditas.uji');
-Route::get('statistik', 'KomoditasController@statistik')->name('statistik.index');
+
+Route::get('statistik', 'GuestController@indexStatistik')->name('statistik.index');
+Route::post('statistik', 'GuestController@showStatistik')->name('statistik.show');
 
 Route::resource('petani', UserInfoController::class);
 Route::get('json-petani', 'UserInfoController@jsonPetani')->name('json.petani');
 Route::get('json-petani/{id}', 'UserInfoController@jsonPetaniDetail')->name('json.petani.detail');
+Route::get('get-petani-by-desa/{id}', 'UserInfoController@getPetaniByDesa')->name('get-petani-by-desa');
 
 Route::resource('kelompok-tani', KelompokTaniController::class);
 Route::get('json-kelompok-tani', 'KelompokTaniController@jsonKelompokTani')->name('json.kelompok.tani');
@@ -75,7 +78,9 @@ Route::resource('desa', DesaController::class);
 Route::get('json-desa', 'DesaController@jsonDesa')->name('json.desa');
 Route::get('get-desa-by-kecamatan/{id}', 'DesaController@getDesaByKecamatan')->name('get-desa-by-kecamatan');
 
-Route::resource('jenis-cabai', KategoriKomoditasDetailController::class);
+// Route::resource('jenis-cabai', KategoriKomoditasDetailController::class);
 Route::get('json-jenis-cabai', 'KategoriKomoditasDetailController@jsonJenisCabai')->name('json.jenis.cabai');
 
 Route::get('gudang-desa/{desa_id}', 'GudangController@getGudangByDesa')->name('gudang.desa');
+
+Route::get('tes', 'KomoditasController@statistik');

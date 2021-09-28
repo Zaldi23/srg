@@ -9,10 +9,19 @@ class UserSeeder extends Seeder
 {
     private $data = [
         [
-            'name' => 'pengelola',
-            'username' => 'pgudang',
-            'email' => 'pgudang@gmail.com',
+            'name' => 'desamirit',
+            'username' => 'desamirit',
+            'email' => 'desamirit@gmail.com',
             'password' => 'janganlupa',
+            'nomor_hp' => '687727757986',
+            'role' => 3,
+        ],
+        [
+            'name' => 'desarowo',
+            'username' => 'desarowo',
+            'email' => 'desarowo@gmail.com',
+            'password' => 'janganlupa',
+            'nomor_hp' => '085159861101',
             'role' => 3,
         ],
         [
@@ -20,6 +29,7 @@ class UserSeeder extends Seeder
             'username' => 'lpk',
             'email' => 'lpk@gmail.com',
             'password' => 'janganlupa',
+            'nomor_hp' => '685159861101',
             'role' => 2,
         ],
         [
@@ -27,6 +37,7 @@ class UserSeeder extends Seeder
             'username' => 'irfan',
             'email' => 'irfan@gmail.com',
             'password' => 'janganlupa',
+            'nomor_hp' => '685159861101',
             'role' => 1,
         ],
         [
@@ -34,6 +45,7 @@ class UserSeeder extends Seeder
             'username' => 'agus',
             'email' => 'agus@gmail.com',
             'password' => 'janganlupa',
+            'nomor_hp' => '685159861101',
             'role' => 1,
         ],
     ];
@@ -50,6 +62,7 @@ class UserSeeder extends Seeder
                         'username' => $data['username'],
                         'email' => $data['email'],
                         'password' => Hash::make($data['password']),
+                        'nomor_hp' => $data['nomor_hp']
                     ]
                 );
                 $user->role()->associate($role);

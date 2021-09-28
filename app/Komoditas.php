@@ -27,4 +27,9 @@ class Komoditas extends Model
     {
         return $this->hasOne(VerifikasiKualitas::class);
     }
+
+    public function desa()
+    {
+        return $this->belongsTo(Desa::class);
+    }
 }

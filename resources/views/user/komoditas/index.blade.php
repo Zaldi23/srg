@@ -19,7 +19,7 @@
                             </nav>
                         </div>
                         <div class="col-lg-6 col-5 text-right">
-                            @if (isset(Auth::user()->user_info->desa_id))
+                            @if (isset(Auth::user()->user_info->luas_lahan, Auth::user()->user_info->kelompok_tani_id))
                                 <a href="{{route('komoditas.create')}}" class="btn btn-sm btn-success">+ Tambah Komoditas</a>
                             @else
                                 <a href="{{route('petani.detail')}}" class="btn btn-sm btn-info">+ Lengkapi data</a>
@@ -44,10 +44,12 @@
                                                 <th>No</th>
                                                 <th>Jenis Cabai</th>
                                                 <th>Kuantitas (Kg)</th>
-                                                <th>Harga harapan/Kg (Rp)</th>
+                                                <th>Harga harapan minimal/Kg (Rp)</th>
+                                                <th>Harga harapan maksimal/Kg (Rp)</th>
                                                 <th>Status Pengajuan</th>
-                                                <th>Status Uji Kualitas</th>
+                                                <th>Status Kualitas</th>
                                                 <th>Harga jual (Rp)</th>
+                                                <th>Mutu</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -293,7 +295,9 @@
                                                     <th>Nama Tani</th>
                                                     <th>Jenis Cabai</th>
                                                     <th>Kuantitas (Kg)</th>
+                                                    <th>Harga Jual (Kg)</th>
                                                     <th>Status</th>
+                                                    <th>Mutu</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -372,10 +376,12 @@
                             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false},
                             {data: 'kategori_komoditas_detail.keterangan', name: 'kategori_komoditas_detail.keterangan'},
                             {data: 'kuantitas', name: 'kuantitas'},
-                            {data: 'harga_harapan', name: 'harga_harapan'},
+                            {data: 'harga_minimal', name: 'harga_minimal'},
+                            {data: 'harga_maksimal', name: 'harga_maksimal'},
                             {data: 'status_pengajuan', name: 'status_pengajuan', orderable: false, searchable: false},
                             {data: 'status_uji_kualitas', name: 'status_uji_kualitas', orderable: false, searchable: false},
                             {data: 'harga_jual', name: 'harga_jual'},
+                            {data: 'mutu', name: 'mutu'},
                             {data: 'action', name: 'action', orderable: false, searchable: false},
                         ]
                     });
@@ -449,7 +455,9 @@
                             {data: 'user_info.nama', name: 'user_info.nama'},
                             {data: 'kategori_komoditas_detail.keterangan', name: 'kategori_komoditas_detail.keterangan'},
                             {data: 'kuantitas', name: 'kuantitas'},
+                            {data: 'harga_jual', name: 'harga_jual'},
                             {data: 'status_komoditas', name: 'status_komoditas'},
+                            {data: 'mutu', name: 'mutu'},
                             {data: 'action', name: 'action', orderable: false, searchable: false},
                         ]
                     });

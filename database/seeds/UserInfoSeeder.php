@@ -19,7 +19,7 @@ class UserInfoSeeder extends Seeder
         [
             'nama' => 'Nawait',
             'luas_lahan' => 150,
-            'desa' => 'Mirit',
+            'desa' => 'Rowo',
             'kelompok_tani' => 'Evos',
             'user' => 'agus',
         ],

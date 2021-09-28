@@ -96,7 +96,7 @@
                                 </nav>
                             </div>
                             <div class="col-lg-6 col-5 text-right">
-                                <a href="{{route('kelompok-tani.create')}}" class="btn btn-sm btn-success">+ Tambah Kelompok Tani</a>
+                                <a id="tambah-kelompok-tani" class="btn btn-sm btn-success">+ Tambah Kelompok Tani</a>
                             </div>
                             <br>
                             <br>
@@ -106,7 +106,7 @@
                             <div class="col-12">
                                 <div class="card card-info">
                                     <div class="card-header">
-                                        <h3 class="card-title">List Kelompok Petani</h3>
+                                        <h3 class="card-title">List Kelompok Petani Desa {{Auth::user()->user_gudang->desa->nama_desa}}</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
@@ -129,6 +129,37 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Modal Tambah Kelompok tani --}}
+                    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <form action="{{route('kelompok-tani.store')}}" method="POST" id="form-tambah">
+                                    @csrf
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Tambah Kelompok Petani</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="keterangan">Nama Kelompok Petani</label>
+                                                    <input class="form-control" type="text" id="keterangan" name="keterangan" placeholder="Nama Petani" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer" id="action_row">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary" type="submit">Buat</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- End Modal Tambah Kelompok tani --}}
                     @break
                 @default
                     
@@ -168,5 +199,12 @@
                 ]
             });
         });
+
+        $('body').on('click', '#tambah-kelompok-tani', function(){
+                $('#modalAdd').modal('show');
+                $('#form-tambah').attr('action', url);
+                $('#form-tambah').trigger('reset');
+                $('#action_row').show();
+            });
     </script>
 @endsection

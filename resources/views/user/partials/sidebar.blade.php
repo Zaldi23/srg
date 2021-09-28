@@ -97,14 +97,6 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{route('jenis-cabai.index')}}" class="nav-link">
-                                <i class="nav-icon fa fa-book"></i>
-                                <p>
-                                    Jenis Cabai
-                                </p>
-                            </a>
-                        </li>
                     </ul>
                     @break
                 @default

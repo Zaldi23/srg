@@ -17,7 +17,8 @@ class CreateKomoditasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_info_id');
             $table->foreign('user_info_id')->references('id')->on('user_infos');
-            $table->decimal('harga_harapan',15,2);
+            $table->decimal('harga_minimal',15,2);
+            $table->decimal('harga_maksimal',15,2);
             $table->double('kuantitas');
 
             $table->unsignedBigInteger('kategori_komoditas_detail_id');
@@ -26,10 +27,15 @@ class CreateKomoditasTable extends Migration
             $table->decimal('harga_jual',15,2)->nullable();
             $table->integer('status_pengajuan')->default(1);
             $table->integer('status_uji_kualitas')->default(1);
+
             $table->unsignedBigInteger('gudang_id')->nullable();
             $table->foreign('gudang_id')->references('id')->on('gudangs');
+
             $table->integer('status_komoditas_di_gudang')->default(1);
             $table->boolean('status')->default(true);
+
+            $table->foreignId('desa_id')->constrained();
+
             $table->timestamps();
         });
     }

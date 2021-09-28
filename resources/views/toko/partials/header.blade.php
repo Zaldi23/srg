@@ -71,7 +71,7 @@
                                 <div class="navbar-collapse">	
                                     <div class="nav-inner">	
                                         <ul class="nav main-menu menu navbar-nav">
-                                                <li class="active"><a href="#">Beranda</a></li>
+                                                <li class="active"><a href="{{url('/')}}">Beranda</a></li>
                                                 <li><a href="#">Produk Kami</a></li>
                                                 <li><a href="{{url('berita')}}">Berita</a>
                                                 </li>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Desa;
 use App\Kecamatan;
+use App\KelompokTani;
 use App\User;
 use App\UserInfo;
 use Illuminate\Http\Request;
@@ -25,9 +27,10 @@ class UserController extends Controller
                 'email' => 'masukkan email',
             ]
         );
-
+        
         try {
             DB::transaction(function () use($request){
+                $desa = Desa::findOrFail(Auth::user()->user_gudang->desa_id);
                 $user = new User();
                 $user->name = $request->name;
                 $user->email = $request->email;
@@ -39,6 +42,7 @@ class UserController extends Controller
                 $userDetail = new UserInfo();
                 $userDetail->user()->associate($user);
                 $userDetail->nama = $request->name;
+                $userDetail->desa()->associate($desa);
                 $userDetail->save();
             });
         } catch (\Throwable $th) {
@@ -52,11 +56,11 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $petani = $user->user_info;
-        // dd($petani);
-        $kecamatan = Kecamatan::all();
+        $kelompokTani = KelompokTani::where('desa_id', $user->user_info->desa_id)->get();
+        // dd($kelompokTani);
         return view('user.petani.akun',compact(
             'petani',
-            'kecamatan'
+            'kelompokTani'
         ));
     }
 
@@ -65,7 +69,8 @@ class UserController extends Controller
         try {
             DB::transaction(function () use($request,$id){
                 $detailAkun = UserInfo::findOrFail($id);
-                $detailAkun->desa_id = $request->desa;
+                $detailAkun->user->nomor_hp = '62'.substr($request->nomor_hp,1);
+                $detailAkun->user->save();
                 $detailAkun->luas_lahan = $request->luas_lahan;
                 $detailAkun->kelompok_tani_id = $request->kelompok_tani;
                 $detailAkun->save();

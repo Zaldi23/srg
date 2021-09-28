@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\PseudoTypes\True_;
+use stdClass;
 use Yajra\DataTables\DataTables;
 
 class KomoditasController extends Controller
@@ -136,6 +137,18 @@ class KomoditasController extends Controller
                         
                         return $action;
                     })
+                    ->addColumn('mutu', function($row){
+                        if (isset($row->verifikasi_kualitas)) {
+                            $action = '
+                                <a class="btn btn-xs btn-info">'.$row->verifikasi_kualitas->mutu.'</a>
+                            ';
+                        } else {
+                            $action = '
+                                <a class="btn btn-xs btn-warning">Belum diuji</a>
+                            ';
+                        }
+                        return $action; 
+                    })
                     ->addColumn('status_uji_kualitas', function($row){
                         switch ($row->status_uji_kualitas) {
                             case 1:
@@ -191,7 +204,7 @@ class KomoditasController extends Controller
                         return $action; 
                     })
                     ->rawColumns([
-                        'action','status_pengajuan','status_uji_kualitas'
+                        'action','status_pengajuan','status_uji_kualitas','mutu'
                     ])
                     ->make(true);
                 break;
@@ -232,7 +245,7 @@ class KomoditasController extends Controller
                     ->make(true);
                 break;
             case 3:                         //PENGELOLA GUDANG
-                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('status',true))
+                return DataTables::of(Komoditas::with('kategori_komoditas_detail','user_info')->where('desa_id',Auth::user()->user_gudang->desa_id)->where('status',true))
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                         $id = $row->id;
@@ -264,6 +277,18 @@ class KomoditasController extends Controller
                         
                         return $action; 
                     })
+                    ->addColumn('mutu', function($row){
+                        if (isset($row->verifikasi_kualitas)) {
+                            $action = '
+                                <a class="btn btn-xs btn-info">'.$row->verifikasi_kualitas->mutu.'</a>
+                            ';
+                        } else {
+                            $action = '
+                                <a class="btn btn-xs btn-warning">Belum diuji</a>
+                            ';
+                        }
+                        return $action; 
+                    })
                     ->addColumn('status_komoditas',function ($row){
                         if ($row->status_pengajuan == 1) {
                             $action = '
@@ -286,7 +311,8 @@ class KomoditasController extends Controller
                     })
                     ->rawColumns([
                         'action',
-                        'status_komoditas'
+                        'status_komoditas',
+                        'mutu'
                     ])
                     ->make(true);
                 break;
@@ -339,28 +365,36 @@ class KomoditasController extends Controller
 
     public function store(Request $request)
     {
+        if (Auth::user()->role_id != 1) {
+            return redirect()->back()->with('alert','anda tidak memiliki akses');
+        }
+
         request()->validate(
             [
                 'kuantitas' => 'required|numeric',
                 'kategori' => 'numeric',
                 'detail_kategori' => 'numeric',
-                'harga' => 'required|numeric',
+                'harga_minimal' => 'required|numeric',
+                'harga_maksimal' => 'required|numeric',
             ],
             [
                 'kuantitas.required' => 'Harap isi.',
                 'kategori.numeric' => 'Harap pilih salah satu',
                 'detail_kategori.numeric' => 'Harap pilih salah satu',
-                'harga.required' => 'Harap isi',
+                'harga_minimal.required' => 'Harap isi',
+                'harga_maksimal.required' => 'Harap isi',
             ]
         );
-
+        // dd($request);
         $detailKomoditas = KategoriKomoditasDetail::findOrFail($request->detail_kategori);
 
         $komoditas = new Komoditas;
-        $komoditas->harga_harapan = $request->harga;
+        $komoditas->harga_minimal = $request->harga_minimal;
+        $komoditas->harga_maksimal = $request->harga_maksimal;
         $komoditas->kuantitas = $request->kuantitas;
         $komoditas->kategori_komoditas_detail()->associate($detailKomoditas);
         $komoditas->user_info()->associate(Auth::user()->user_info);
+        $komoditas->desa()->associate(Auth::user()->user_info->desa);
         $saved = $komoditas->save();
 
         if ($saved) {
@@ -373,9 +407,10 @@ class KomoditasController extends Controller
     public function show($id)
     {
         $komoditas = Komoditas::findOrFail($id);
-
+        $gudang = Gudang::where('desa_id', $komoditas->desa_id)->get();
         return view('user.komoditas.show',compact(
-            'komoditas'
+            'komoditas',
+            'gudang'
         ));
     }
 
@@ -441,39 +476,92 @@ class KomoditasController extends Controller
 
     public function penggudangan(Request $request)
     {
+        
         request()->validate(
             [
-                'desa' => 'required|numeric',
-                'gudang' => 'required|numeric',
-                'harga_jual' => 'required|numeric'
+                'harga_jual' => 'required|numeric',
+                'warna' => 'required|numeric',
+                'seragam' => 'numeric|required',
+                'panjang' => 'numeric|required',
+                'pangkal' => 'numeric|required',
+                'kotor' => 'required|numeric',
+                'busuk' => 'required|numeric',
             ],
             [
-                'required' => 'Harap isi pilih salah satu',
+                'required' => 'Harap pilih salah satu',
                 'numeric' => 'Tidak valid',
             ]
         );
-        $gudang = Gudang::findOrFail($request->gudang);
-        if ($gudang->terisi < $gudang->kuota) {
-            $komoditas = Komoditas::findOrFail($request->komoditas);
-            
-            $gudang->terisi = $gudang->terisi + $komoditas->kuantitas;
-            $gudang->save();
 
-            $komoditas->status_pengajuan = 3;
-            
-            $komoditas->harga_jual = $request->harga_jual;
-            $komoditas->status_komoditas_di_gudang = 2;
-            $komoditas->gudang()->associate($gudang);
-            $saved = $komoditas->save();
-            if ($saved) {
-                return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' berhasil masuk gudang');
-            }
+        $poinWarna = AturanKualitas::where('keterangan', 'warna')->where(function($query)use($request){
+            $query->where('nilai_min','<=',$request->warna)->where('nilai_max','>=',$request->warna);
+        })->first();
+
+        $poinSeragam = AturanKualitas::where('keterangan', 'seragam')->where(function($query)use($request){
+            $query->where('nilai_min','<=',$request->seragam)->where('nilai_max','>=',$request->seragam);
+        })->first();
+
+        $poinPanjang = AturanKualitas::where('keterangan', 'panjang')->where(function($query)use($request){
+            $query->where('nilai_min','<=',$request->panjang)->where('nilai_max','>=',$request->panjang);
+        })->first();
+
+        $poinPangkal = AturanKualitas::where('keterangan', 'pangkal')->where(function($query)use($request){
+            $query->where('nilai_min','<=',$request->pangkal)->where('nilai_max','>=',$request->pangkal);
+        })->first();
+
+        $poinKotor = AturanKualitas::where('keterangan', 'kotor')->where(function($query)use($request){
+            $query->where('nilai_min','<=',$request->kotor)->where('nilai_max','>=',$request->kotor);
+        })->first();
+
+        $poinBusuk = AturanKualitas::where('keterangan', 'busuk')->where(function($query)use($request){
+            $query->where('nilai_min','<=',$request->busuk)->where('nilai_max','>=',$request->busuk);
+        })->first();
+
+        $totalPoin = $poinWarna->poin + $poinSeragam->poin + $poinPanjang->poin + $poinPangkal->poin + $poinKotor->poin + $poinBusuk->poin;
+
+        $mutu = AturanMutu::where(function($query)use($totalPoin){
+            $query->where('total_poin_min','<=',$totalPoin)->where('total_poin_max','>=',$totalPoin);
+        })->first();
+
+        $komoditas = Komoditas::findOrFail($request->komoditas);
+        try {
+            DB::transaction(function () use($request,$totalPoin,$mutu, $komoditas){
+                $komoditas->status_uji_kualitas = 2;
     
-            return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' gagal diproses');
-            
-        }else{
-            return redirect()->back()->with('alert','gudang dalam keadaan penuh');
+                $verifikasiKualitas = new VerifikasiKualitas();
+                $verifikasiKualitas->komoditas()->associate($komoditas); 
+                $verifikasiKualitas->warna = $request->warna;
+                $verifikasiKualitas->seragam = $request->seragam;
+                $verifikasiKualitas->panjang = $request->panjang;
+                $verifikasiKualitas->pangkal = $request->pangkal;
+                $verifikasiKualitas->kotor = $request->kotor;
+                $verifikasiKualitas->busuk = $request->busuk;
+                $verifikasiKualitas->total_poin = $totalPoin;
+                $verifikasiKualitas->mutu = $mutu->keterangan;
+                $verifikasiKualitas->save();
+    
+                $gudang = Gudang::findOrFail($request->gudang);
+                if ($gudang->terisi < $gudang->kuota) {
+                    
+                    $gudang->terisi = $gudang->terisi + $komoditas->kuantitas;
+                    $gudang->save();
+        
+                    $komoditas->status_pengajuan = 3;
+                    
+                    $komoditas->harga_jual = $request->harga_jual;
+                    $komoditas->status_komoditas_di_gudang = 2;
+                    $komoditas->gudang()->associate($gudang);
+
+                    $komoditas->save();
+                    $verifikasiKualitas->save();
+                    $komoditas->save();
+                }
+            });
+        } catch (\Throwable $th) {
+            return redirect()->route('komoditas.index')->with('alert','Komoditas gagal diproses');
         }
+
+        return redirect()->route('komoditas.index')->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' berhasil masuk gudang');
     }
 
     public function manage(Request $request)

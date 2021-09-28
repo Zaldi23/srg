@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserInfo::class);
     }
+
+    public function user_gudang()
+    {
+        return $this->hasOne(UserGudang::class);
+    }
 }

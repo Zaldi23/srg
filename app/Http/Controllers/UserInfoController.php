@@ -12,7 +12,7 @@ class UserInfoController extends Controller
 {
     public function jsonPetani()
     {
-        return DataTables::of(UserInfo::with('user','desa.kecamatan','kelompok_tani'))
+        return DataTables::of(UserInfo::with('user','desa.kecamatan','kelompok_tani')->where('desa_id',Auth::user()->user_gudang->desa_id))
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 $id = $row->id;
@@ -181,6 +181,13 @@ class UserInfoController extends Controller
                 return redirect()->route('login');
                 break;
         }
+    }
+
+    public function getPetaniByDesa($id)
+    {
+        return json_encode(
+            UserInfo::where('desa_id',$id)->get()
+        );
     }
     
     public function index()

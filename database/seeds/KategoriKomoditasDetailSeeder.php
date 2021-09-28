@@ -17,7 +17,19 @@ class KategoriKomoditasDetailSeeder extends Seeder
         ],
         [
             'kategori' => 'Cabai',
-            'keterangan' => 'Cabai Ijo'
+            'keterangan' => 'Cabai Merah'
+        ],
+        [
+            'kategori' => 'Cabai',
+            'keterangan' => 'Cabai Putih'
+        ],
+        [
+            'kategori' => 'Cabai',
+            'keterangan' => 'Cabai Bubuk'
+        ],
+        [
+            'kategori' => 'Cabai',
+            'keterangan' => 'Cabai Paprika'
         ],
     ];
 

@@ -7,6 +7,7 @@ use App\Kecamatan;
 use App\KelompokTani;
 use App\UserInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class KelompokTaniController extends Controller
@@ -60,7 +61,7 @@ class KelompokTaniController extends Controller
 
     public function jsonKelompokTani()
     {
-        return DataTables::of(KelompokTani::with('desa.kecamatan'))
+        return DataTables::of(KelompokTani::with('desa.kecamatan')->where('desa_id', Auth::user()->user_gudang->desa_id))
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 $id = $row->id;
@@ -83,18 +84,17 @@ class KelompokTaniController extends Controller
     
     public function create()
     {
-        $kecamatan = Kecamatan::all();
-        return view('user.kelompok-tani.create',compact(
-            'kecamatan'
-        ));
+        return redirect()->back();
+        // $kecamatan = Kecamatan::all();
+        // return view('user.kelompok-tani.create',compact(
+        //     'kecamatan'
+        // ));
     }
 
     public function store(Request $request)
     {
         request()->validate(
             [
-                'kecamatan' => 'required|numeric',
-                'desa' => 'numeric',
                 'keterangan' => 'required',
             ],
             [
@@ -103,7 +103,7 @@ class KelompokTaniController extends Controller
             ]
         );
 
-        $desa = Desa::findOrFail($request->desa);
+        $desa = Auth::user()->user_gudang->desa;
 
         $kelompokTani = new KelompokTani();
         $kelompokTani->keterangan = $request->keterangan;

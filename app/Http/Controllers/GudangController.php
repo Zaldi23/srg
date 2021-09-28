@@ -7,6 +7,7 @@ use App\Gudang;
 use App\Kecamatan;
 use App\Komoditas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class GudangController extends Controller
@@ -98,7 +99,7 @@ class GudangController extends Controller
 
     public function jsonGudang()
     {
-        return DataTables::of(Gudang::with('desa.kecamatan'))
+        return DataTables::of(Gudang::with('desa.kecamatan')->where('desa_id', Auth::user()->user_gudang->desa_id))
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 $id = $row->id;

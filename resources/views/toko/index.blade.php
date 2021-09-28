@@ -104,7 +104,7 @@
                                             <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                                                 <div class="single-product">
                                                     <div class="product-img">
-                                                        <a href="product-details.html">
+                                                        <a>
                                                             <img class="default-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
                                                             <img class="hover-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
                                                         </a>
@@ -115,10 +115,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="product-content">
-                                                        <h3><a href="product-details.html">{{$item->kategori_komoditas_detail->keterangan}}</a></h3>
+                                                        {{$item->kategori_komoditas_detail->keterangan}} dengan mutu <button class="btn-sm btn-success">{{$item->verifikasi_kualitas->mutu}}</button>
+                                                        <br>
+                                                        kuantitas = {{$item->kuantitas}} Kg
                                                         <div class="product-price">
-                                                            <span>{{$item->harga_jual}}</span>
+                                                            <span>Rp.{{$item->harga_jual}}</span>
                                                         </div>
+                                                        <a target="_blank" href="https://api.whatsapp.com/send?phone={{$item->user_info->user->nomor_hp}}&text=Saya%20%20ingin%20membeli%20{{$item->kategori_komoditas_detail->keterangan}}%20dengan%20kuantitas%20{{$item->kuantitas}}kg%20dengan%20kode%20komoditas%20{{$item->id}}" class="btn btn-primary">
+                                                            Hubungi Petani
+                                                        </a>
+                                                        <style>
+                                                            a:visited{
+                                                                color: #FFF;
+                                                            }
+                                                        </style>
                                                     </div>
                                                 </div>
                                             </div>

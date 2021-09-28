@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             KelompokTaniSeeder::class,
             UserSeeder::class,
             UserInfoSeeder::class,
+            UserGudangSeeder::class,
         ]);
     }
 }

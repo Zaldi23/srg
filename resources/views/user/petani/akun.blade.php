@@ -18,7 +18,7 @@
                         <!-- /.card-header -->
 
                         <!-- form start -->
-                        @if (isset($petani->desa_id))
+                        @if (isset($petani->luas_lahan, $petani->kelompok_tani_id))
                             <form id="quickForm" method="POST" action="{{route('petani.update',$petani->id)}}">
                                 @method('PUT')
                                 @csrf
@@ -31,26 +31,14 @@
                                             </div>
                                         </div>
 
-                                    </div>
-
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="kecamatan">Kecamatan</label>
-                                                <select name="kecamatan" id="kecamatan" disabled class="form-control" style="width: 100%;">
-                                                    <option selected="selected" disabled>{{$petani->desa->kecamatan->nama_kecamatan}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                           <div class="form-group">
-                                                <label for="desa">Desa</label>
-                                                <select disabled class="form-control" name="desa" id="desa" style="width: 100%;">
-                                                    <option selected>{{$petani->desa->nama_desa}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                                 <label for="desa">Desa</label>
+                                                 <select disabled class="form-control" name="desa" id="desa" style="width: 100%;">
+                                                     <option selected>{{$petani->desa->nama_desa}}</option>
+                                                 </select>
+                                             </div>
+                                         </div>
                                     </div>
 
                                     <div class="row">
@@ -89,91 +77,45 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="desa">Desa</label>
+                                                <select class="form-control" name="desa" id="desa" style="width: 100%;">
+                                                    <option value="{{$petani->desa->id}}" selected>{{$petani->desa->nama_desa}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="kecamatan">Kecamatan</label>
-                                                <select name="kecamatan" id="kecamatan" class="form-control" style="width: 100%;">
-                                                    <option selected="selected" disabled>Pilih salah satu</option>
-                                                    @foreach ($kecamatan as $item)
-                                                        <option value="{{$item->id}}" @if (old('kecamatan')==$item->id) selected @endif>{{$item->nama_kecamatan}}</option>
+                                                <label for="kelompok_tani">Kelompok tani</label>
+                                                <select class="form-control" required name="kelompok_tani" id="kelompok_tani" style="width: 100%;">
+                                                    <option disabled selected>Pilih salah satu</option>
+                                                    @foreach ($kelompokTani as $item)
+                                                        <option value="{{$item->id}}">{{$item->keterangan}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-                                            <script>
-                                                $(document).ready(function(){
-                                                    $('#kecamatan').on('change', function(){
-                                                        let id = $(this).val();
-                                                        $('#desa').empty();
-                                                        $('#desa').append(`<option value="0" disabled selected>Memproses...</option>`);
-                                                        $.ajax({
-                                                            type: 'GET',
-                                                            url: "{{route('get-desa-by-kecamatan', '')}}"+"/"+id,
-                                                            success: function(response){
-                                                                var response = JSON.parse(response);
-                                                                console.log(response);
-                                                                $('#desa').empty();
-                                                                $('#desa').append(`<option value="0" disabled selected>Pilih Salah Satu</option>`);
-                                                                response.forEach(element => {
-                                                                    $('#desa').append(`<option value="${element['id']}">${element['nama_desa']}</option>`);
-                                                                });
-                                                            }
-                                                        })
-                                                    })
-                                                });
-                                            </script>
-
-                                            <div class="form-group">
-                                                <label for="desa">Desa</label>
-                                                <select class="form-control" name="desa" id="desa" style="width: 100%;"></select>
+                                            <label for="luas_lahan">Luas lahan</label>
+                                            <div class="input-group">
+                                                <input type="number" required value="{{old('luas_lahan',$petani->luas_lahan)}}" name="luas_lahan" class="form-control" id="luas_lahan" placeholder="Luas lahan yang dimiliki dalam Meter">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">M<sup>2</sup></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <script>
-                                                $(document).ready(function(){
-                                                    $('#desa').on('change', function(){
-                                                        let id = $(this).val();
-                                                        $('#kelompok_tani').empty();
-                                                        $('#kelompok_tani').append(`<option value="0" disabled selected>Memproses...</option>`);
-                                                        $.ajax({
-                                                            type: 'GET',
-                                                            url: "{{route('get-kelompok-tani-by-desa', '')}}"+"/"+id,
-                                                            success: function(response){
-                                                                var response = JSON.parse(response);
-                                                                console.log(response);
-                                                                $('#kelompok_tani').empty();
-                                                                $('#kelompok_tani').append(`<option value="0" disabled selected>Pilih Salah Satu</option>`);
-                                                                response.forEach(element => {
-                                                                    $('#kelompok_tani').append(`<option value="${element['id']}">${element['keterangan']}</option>`);
-                                                                });
-                                                            }
-                                                        })
-                                                    })
-                                                });
-                                            </script>
-
-                                            <div class="form-group">
-                                                <label for="kelompok_tani">Kelompok tani</label>
-                                                <select class="form-control" name="kelompok_tani" id="kelompok_tani" style="width: 100%;"></select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label for="luas_lahan">Luas lahan</label>
+                                            <label for="nomor_hp">Nomor WA</label>
                                             <div class="input-group">
-                                                <input type="number" value="{{old('luas_lahan',$petani->luas_lahan)}}" name="luas_lahan" class="form-control" id="luas_lahan" placeholder="Luas lahan yang dimiliki dalam Meter">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">M<sup>2</sup></span>
-                                                </div>
+                                                <input type="number" required value="{{old('nomor_hp',$petani->user->nomor_hp)}}" name="nomor_hp" class="form-control" id="nomor_hp" placeholder="Nomor WA">
                                             </div>
                                         </div>
                                     </div>

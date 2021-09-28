@@ -65,11 +65,23 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="harga">Harga minimal</label>
+                                    <div class="input-group">
+                                        <input type="number" disabled value="{{old('harga',$komoditas->harga_minimal)}}" name="harga" class="form-control" id="harga" placeholder="Harga minimal Perkilogram">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">/Kg</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 
                                 <div class="col-md-6">
-                                    <label for="harga">Harga Harapan</label>
+                                    <label for="harga">Harga maksimal</label>
                                     <div class="input-group">
-                                        <input type="number" disabled value="{{old('harga',$komoditas->harga_harapan)}}" name="harga" class="form-control" id="harga" placeholder="Harga Harapan Perkilogram">
+                                        <input type="number" disabled value="{{old('harga',$komoditas->harga_maksimal)}}" name="harga" class="form-control" id="harga" placeholder="Harga maksimal Perkilogram">
                                         <div class="input-group-append">
                                             <span class="input-group-text">/Kg</span>
                                         </div>
@@ -93,68 +105,193 @@
 
                             @if (Auth::user()->role_id == 3)                                {{-- KALO PENGELOLA GUDANG --}}
                                 @if ($komoditas->status_pengajuan == 1)                     {{-- STATUS KOMODITAS BELUM DIAPA-APAKAN OLEH PGUDANG --}}
-                                    <form id="quickForm" method="POST" action="{{route('komoditas.penggudangan')}}">
-                                        @csrf
-                                        <input type="hidden" name="komoditas" value="{{$komoditas->id}}">
-                                        <br>
-                                        <h4>Penggudangan</h4>
-                                        
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="harga">Harga Jual</label>
-                                                <div class="input-group-append">
-                                                    <input type="number" step="100" min="0" name="harga_jual" id="harga_jual" class="form-control" placeholder="Harga Jual Perkilogram">
-                                                    <span class="input-group-text">/Kg</span>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-md-4">
-                                                <label for="desa">Desa</label>
-                                                <select name="desa" id="desa" class="form-control" style="width: 100%;">
-                                                    <option selected="selected" disabled>Pilih salah satu</option>
-                                                    <option value="{{$komoditas->user_info->desa->id}}">{{$komoditas->user_info->desa->nama_desa}}</option>
-                                                </select>
-                                            </div>
-                                            
-                                            <div class="col-md-4">
-                                                <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-                                                <script>
-                                                    $(document).ready(function(){
-                                                        $('#desa').on('change', function(){
-                                                            let id = $(this).val();
-                                                            console.log(id);
-                                                            var route = "{{ url('gudang-desa') }}/"+id;
-                                                            $('#gudang').empty();
-                                                            $('#gudang').append(`<option value="0" disabled selected>Memproses...</option>`);
-                                                            $.ajax({
-                                                                type: 'GET',
-                                                                url: route,
-                                                                success: function(response){
-                                                                    var response = JSON.parse(response);
-                                                                    console.log(response);
-                                                                    $('#gudang').empty();
-                                                                    $('#gudang').append(`<option value="0" disabled selected>Pilih Salah Satu</option>`);
-                                                                    response.forEach(element => {
-                                                                        $('#gudang').append(`<option value="${element['id']}">${element['nama_gudang']}|<small>Kuota tersisa = ${element['kuota']-element['terisi']}</small></option>`);
-                                                                    });
-                                                                }
-                                                            })
-                                                        })
-                                                    });
-                                                </script>
+                                    <input type="hidden" name="komoditas" value="{{$komoditas->id}}">
+                                    <br>
+                                    <h4>Penggudangan</h4>
+                                    
+                                    <!-- /.card-body -->
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAksi">Submit</button>
+                                        <a class="btn btn-danger" id="tolak">Tolak</a>
+                                    </div>
 
-                                                <div class="form-group">
-                                                    <label for="gudang">Pilih gudang</label>
-                                                    <select class="form-control" name="gudang" id="gudang" style="width: 100%;"></select>
-                                                </div>
+                                    {{-- Modal AKSI --}}
+                                    <div class="modal fade" id="modalAksi" tabindex="-1" role="dialog" aria-labelledby="modalAksi" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <form method="POST" action="{{route('komoditas.penggudangan')}}" id="form-aksi">
+                                                    @csrf
+                                                    <input type="hidden" name="komoditas" value="{{$komoditas->id}}">
+                                                    <div class="modal-header">
+                                                        <span id="modal_title"></span>
+                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="harga">Harga Jual</label>
+                                                                    <div class="input-group-append">
+                                                                        <input type="number" step="500" min="0" name="harga_jual" id="harga_jual" class="form-control" placeholder="Harga Jual Perkilogram">
+                                                                        <span class="input-group-text">/Kg</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="gudang">Gudang</label>
+                                                                    <select name="gudang" id="gudang" class="form-control">
+                                                                        <option disabled selected>Pilih salah satu</option>
+                                                                        @foreach ($gudang as $item)
+                                                                            <option value="{{$item->id}}">{{$item->nama_gudang}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label">Keseragaman Warna</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="warna" id="warna95" value="95">
+                                                                        <label class="form-check-label" for="warna95">
+                                                                        Merah > 94%
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="warna" id="warna94" value="94">
+                                                                        <label class="form-check-label" for="warna94">
+                                                                        < 94%
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label">Keseragaman</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="seragam" id="seragam98" value="98">
+                                                                        <label class="form-check-label" for="seragam98">
+                                                                        Seragam => 98%
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="seragam" id="seragam96" value="96">
+                                                                        <label class="form-check-label" for="seragam96">
+                                                                        Seragam 96% - 97%
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="seragam" id="seragam95" value="95">
+                                                                        <label class="form-check-label" for="seragam95">
+                                                                        Seragam <= 95%
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label" for="panjang">Panjang buah</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="panjang" id="panjang12" value="12">
+                                                                        <label class="form-check-label" for="panjang12">
+                                                                        > 11 cm
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="panjang" id="panjang9" value="9">
+                                                                        <label class="form-check-label" for="panjang9">
+                                                                        9-11 cm
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="panjang" id="panjang8" value="8">
+                                                                        <label class="form-check-label" for="panjang8">
+                                                                        < 9 cm
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label" for="pangkal">Garis tengah pangkal</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="pangkal" id="pangkal3" value="1.4">
+                                                                        <label class="form-check-label" for="pangkal3">
+                                                                        > 1,3 cm
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="pangkal" id="pangkal2" value="1.0">
+                                                                        <label class="form-check-label" for="pangkal2">
+                                                                        1,0-1,3 cm
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="pangkal" id="pangkal1" value="0.9">
+                                                                        <label class="form-check-label" for="pangkal1">
+                                                                        < 1,0 cm
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label" for="kotor">Kadar kotoran</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="kotor" id="kotor1" value="1">
+                                                                        <label class="form-check-label" for="kotor1">
+                                                                        1%
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="kotor" id="kotor2" value="2">
+                                                                        <label class="form-check-label" for="kotor2">
+                                                                        2%
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="kotor" value="3" id="kotor3">
+                                                                        <label class="form-check-label" for="kotor3">
+                                                                        3%
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label" for="busuk">Tingkat kerusakan dan busuk</label>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="busuk" value="0" id="busuk0">
+                                                                        <label class="form-check-label" for="busuk0">
+                                                                        0%
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="busuk" value="1" id="busuk1">
+                                                                        <label class="form-check-label" for="busuk1">
+                                                                        1%
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="busuk" id="busuk2" value="2">
+                                                                        <label class="form-check-label" for="busuk2">
+                                                                        2%
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>                    
+                                                    </div>
+                                                    <div class="modal-footer" id="action_row">
+                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Tutup</button>
+                                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                        <!-- /.card-body -->
-                                        <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                            <a class="btn btn-danger" id="tolak">Tolak</a>
-                                        </div>
-                                    </form>
+                                    </div>
+                                    {{-- End Modal AKSI --}}
 
                                     {{-- Modal Tolak --}}
                                     <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">

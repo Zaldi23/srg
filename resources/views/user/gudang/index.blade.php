@@ -106,7 +106,7 @@
                             <div class="col-12">
                                 <div class="card card-info">
                                     <div class="card-header">
-                                        <h3 class="card-title">List Gudang</h3>
+                                        <h3 class="card-title">List Gudang Desa Desa {{Auth::user()->user_gudang->desa->nama_desa}}</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
