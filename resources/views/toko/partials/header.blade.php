@@ -72,10 +72,23 @@
                                     <div class="nav-inner">	
                                         <ul class="nav main-menu menu navbar-nav">
                                                 <li class="active"><a href="{{url('/')}}">Beranda</a></li>
-                                                <li><a href="#">Produk Kami</a></li>
-                                                <li><a href="{{url('berita')}}">Berita</a>
+                                                <li>
+                                                    <a href="#">Produk Kami</a>
                                                 </li>
-                                                <li><a href="{{route('statistik.index')}}">Statistik</a>
+                                                <li>
+                                                    <a href="{{url('berita')}}">Berita</a>
+                                                </li>
+                                                <li>
+                                                </li>
+                                                <li><a href="#">Statistik<i class="ti-angle-down"></i></a>
+                                                    <ul class="dropdown">
+                                                        <li>
+                                                            <a href="{{route('statistik.index')}}">Per Petani</a> 
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{route('statistik-desa.index')}}">Per Desa</a> 
+                                                        </li>
+                                                    </ul>
                                                 </li>
                                                 <li><a href="#">Kontak Kami<i class="ti-angle-down"></i></a>
                                                     <ul class="dropdown">

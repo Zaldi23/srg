@@ -9,7 +9,7 @@ class GudangSeeder extends Seeder
     private $data = [
         [
             'nama_gudang' => 'Maju Jaya',
-            'kuota' => 100,
+            'kuota' => 1000000,
             'nama_desa' => 'Mirit',
         ],
     ];

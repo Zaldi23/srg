@@ -20,6 +20,7 @@ class CreateKomoditasTable extends Migration
             $table->decimal('harga_minimal',15,2);
             $table->decimal('harga_maksimal',15,2);
             $table->double('kuantitas');
+            $table->integer('terjual')->default(0)->nullable();
 
             $table->unsignedBigInteger('kategori_komoditas_detail_id');
             $table->foreign('kategori_komoditas_detail_id')->references('id')->on('kategori_komoditas_details');
@@ -33,6 +34,7 @@ class CreateKomoditasTable extends Migration
 
             $table->integer('status_komoditas_di_gudang')->default(1);
             $table->boolean('status')->default(true);
+            $table->boolean('telah_terjual')->default(false);
 
             $table->foreignId('desa_id')->constrained();
 

@@ -61,6 +61,18 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nomor_hp">Nomor Wa</label>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">+</span>
+                                                    <input type="number" readonly value="{{old('nomor_hp',$petani->user->nomor_hp)}}" name="nomor_hp" class="form-control" id="nomor_hp" placeholder="Luas lahan yang dimiliki dalam Meter">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 
                                 </div>
                             </form>

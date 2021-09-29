@@ -77,11 +77,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                </div>
+
+                                <div class="row">
                                     <div class="col-md-6">
-                                        <label for="harga">Harga Harapan</label>
+                                        <label for="harga_minimal">Harga Minimal</label>
                                         <div class="input-group">
-                                            <input type="number" value="{{old('harga',$komoditas->harga_harapan)}}" name="harga" class="form-control" id="harga" placeholder="Harga Harapan Perkilogram">
+                                            <input type="number" value="{{old('harga_minimal',$komoditas->harga_minimal)}}" name="harga_minimal" class="form-control" id="harga_minimal" placeholder="Harga Harapan minimal Perkilogram">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">/Kg</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="harga_maksimal">Harga Maksimal</label>
+                                        <div class="input-group">
+                                            <input type="number" value="{{old('harga_maksimal',$komoditas->harga_maksimal)}}" name="harga_maksimal" class="form-control" id="harga_maksimal" placeholder="Harga Harapan maksimal Perkilogram">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">/Kg</span>
                                             </div>
