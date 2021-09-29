@@ -19,7 +19,7 @@
                     <div class="right-content">
                          <ul class="list-inline pull-right col-xs-12 col-md-12 col-sm-12 col-lg-12">
                             <li class="hidden-xs col-xs-12 col-md-12 col-sm-12 col-lg-12">
-                                <marquee style="padding-top: 4px; color: rgb(32, 158, 21);">Selamat Datang di Aplikasi SRG (Sistem Resi Gudang) - Dinas Perindustrian dan Perdagangan Kabupaten Kebumen</marquee>
+                                <marquee style="padding-top: 4px; color: rgb(29, 153, 18);">Selamat Datang di Aplikasi SIMC (Sistem Informasi Harga Cabai) - Dinas Perindustrian dan Perdagangan Kabupaten Kebumen</marquee>
                             </li>
                         </ul>
         
@@ -45,7 +45,7 @@
                 
                 <div class="col-lg-6 col-md-3 col-12">
                     <div class="right-bar">
-                        <div class="sinlge-bar shopping">
+                        <div class="sinlge-bar shopping"> <br>
                             <a href="{{route('login')}}" class="single-icon">MASUK </a>
                             <!-- Shopping Item -->
                             

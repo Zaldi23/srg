@@ -5,17 +5,17 @@
 					<div class="col-lg-5 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer about">
-							<div class="logo">
-								<a href="index.html"><img src="{{asset('toko/images/logo2.png')}}" alt="#"></a>
+							<div class="text">
+								<h3>Koordintaor Lelang Cabai</h3>
+								<br>
 							</div>
-							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
+							<p class="text">Petani Mas Taat</p>
+							<p class="call">Ada pertanyaan hubungi kontak dibawah ini<span><a href="https://wa.me/6287870092987" target="blank_">087870092987</a></span></p>
 						</div>
 						<!-- End Single Widget -->
 					</div>
 					
 						<!-- End Single Widget -->
-					</div>
 				
 						<!-- Single Widget -->
 					
@@ -30,13 +30,8 @@
 				<div class="inner">
 					<div class="row">
 						<div class="col-lg-6 col-12">
-							<div class="left">
-								<p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
-							</div>
-						</div>
-						<div class="col-lg-6 col-12">
-							<div class="right">
-								<img src="{{asset('toko/images/payments.png')}}" alt="#">
+							<div>
+								<p>Copyright © 2020 -  All Rights Reserved.</p>
 							</div>
 						</div>
 					</div>
