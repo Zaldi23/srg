@@ -105,8 +105,28 @@
                                                 <div class="single-product">
                                                     <div class="product-img">
                                                         <a>
-                                                            <img class="default-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
-                                                            <img class="hover-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
+                                                            @switch($item->kategori_komoditas_detail_id)
+                                                                @case(1)
+                                                                    <img class="default-img" src="{{asset('toko/images/produk1.png')}}" alt="#">
+                                                                    @break
+                                                                @case(2)
+                                                                    <img class="default-img" src="{{asset('toko/images/produk2.png')}}" alt="#">
+                                                                    @break
+                                                                @case(3)
+                                                                    <img class="default-img" src="{{asset('toko/images/produk3.png')}}" alt="#">
+                                                                    @break
+                                                                @case(4)
+                                                                    <img class="default-img" src="{{asset('toko/images/produk4.png')}}" alt="#">
+                                                                    @break
+                                                                @case(5)
+                                                                    <img class="default-img" src="{{asset('toko/images/produk5.png')}}" alt="#">
+                                                                    @break
+                                                                @case(6)
+                                                                    <img class="default-img" src="{{asset('toko/images/produk6.png')}}" alt="#">
+                                                                    @break
+                                                                @default
+                                                                    
+                                                            @endswitch
                                                         </a>
                                                         <div class="button-head">
                                                             <div class="product-action-2">
@@ -117,13 +137,23 @@
                                                     <div class="product-content">
                                                         {{$item->kategori_komoditas_detail->keterangan}} dengan mutu <button class="btn-sm btn-success">{{$item->verifikasi_kualitas->mutu}}</button>
                                                         <br>
-                                                        kuantitas = {{$item->kuantitas}} Kg
+                                                        kuantitas = {{$item->kuantitas-$item->terjual}} Kg
+                                                        @if ($item->terjual == true)
+                                                            <br>
+                                                            <button class="btn-sm btn-danger">Terjual</button>
+                                                        @endif
                                                         <div class="product-price">
                                                             <span>Rp.{{$item->harga_jual}}</span>
                                                         </div>
-                                                        <a target="_blank" href="https://api.whatsapp.com/send?phone={{$item->user_info->user->nomor_hp}}&text=Saya%20%20ingin%20membeli%20{{$item->kategori_komoditas_detail->keterangan}}%20dengan%20kuantitas%20{{$item->kuantitas}}kg%20dengan%20kode%20komoditas%20{{$item->id}}" class="btn btn-primary">
-                                                            Hubungi Petani
-                                                        </a>
+                                                        @if ($item->terjual == true)
+                                                            <a target="_blank" href="https://api.whatsapp.com/send?phone={{$item->user_info->user->nomor_hp}}" class="btn btn-primary">
+                                                                Hubungi Petani
+                                                            </a>
+                                                        @else
+                                                            <a target="_blank" href="https://api.whatsapp.com/send?phone={{$item->user_info->user->nomor_hp}}&text=Saya%20%20ingin%20membeli%20{{$item->kategori_komoditas_detail->keterangan}}%20dengan%20kuantitas%20{{$item->kuantitas}}kg%20dengan%20kode%20komoditas%20{{$item->id}}" class="btn btn-primary">
+                                                                Hubungi Petani
+                                                            </a>
+                                                        @endif
                                                         <style>
                                                             a:visited{
                                                                 color: #FFF;

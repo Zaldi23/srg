@@ -137,6 +137,20 @@ class KomoditasController extends Controller
                         
                         return $action;
                     })
+                    ->addColumn('kuantitas_tersisa', function($row){
+                        $action = $row->kuantitas-$row->terjual;
+                        
+                        return $action; 
+                    })
+                    ->addColumn('telah_terjual', function($row){
+                        $action = '
+                            <small>Kuantitas awal</small> <a class="btn btn-xs btn-info">'.$row->kuantitas.'</a>
+                            <br>
+                            <small>Kuantitas terjual</small> <a class="btn btn-xs btn-danger">'.$row->terjual.'</a>
+                        ';
+                        
+                        return $action; 
+                    })
                     ->addColumn('mutu', function($row){
                         if (isset($row->verifikasi_kualitas)) {
                             $action = '
@@ -186,10 +200,19 @@ class KomoditasController extends Controller
                             ';
                         }elseif($row->status_pengajuan == 3){
                             if ($row->status_uji_kualitas == 2) {
-                                $action = '
-                                    <a class="btn btn-xs btn-info" href="'.$detailKomoditasUrl.'">Detail</a>
-                                    <a class="btn btn-xs btn-dark" href="komoditas/cetak-surat-mutu/'.$id.'">Cetak</a>
-                                ';
+                                if ($row->terjual == $row->kuantitas) {
+                                    $action = '
+                                        <a class="btn btn-xs btn-info" href="'.$detailKomoditasUrl.'">Detail</a>
+                                        <a class="btn btn-xs btn-dark" href="komoditas/cetak-surat-mutu/'.$id.'">Cetak</a>
+                                    ';
+                                } else {
+                                    $action = '
+                                        <a class="btn btn-xs btn-info" href="'.$detailKomoditasUrl.'">Detail</a>
+                                        <a class="btn btn-xs btn-dark" href="komoditas/cetak-surat-mutu/'.$id.'">Cetak</a>
+                                        <a class="btn btn-xs btn-success jual" id="'.$id.'">Terjual</a>
+                                    ';
+                                }
+                                
                             }else{
                                 $action = '
                                     <a class="btn btn-xs btn-info" href="'.$detailKomoditasUrl.'">Detail</a>
@@ -204,7 +227,7 @@ class KomoditasController extends Controller
                         return $action; 
                     })
                     ->rawColumns([
-                        'action','status_pengajuan','status_uji_kualitas','mutu'
+                        'action','status_pengajuan','status_uji_kualitas','mutu','telah_terjual'
                     ])
                     ->make(true);
                 break;
@@ -277,6 +300,20 @@ class KomoditasController extends Controller
                         
                         return $action; 
                     })
+                    ->addColumn('telah_terjual', function($row){
+                        $action = '
+                            <small>Kuantitas awal</small> <a class="btn btn-xs btn-info">'.$row->kuantitas.'</a>
+                            <br>
+                            <small>Kuantitas terjual</small> <a class="btn btn-xs btn-danger">'.$row->terjual.'</a>
+                        ';
+                        
+                        return $action; 
+                    })
+                    ->addColumn('kuantitas_tersisa', function($row){
+                        $action = $row->kuantitas-$row->terjual;
+                        
+                        return $action; 
+                    })
                     ->addColumn('mutu', function($row){
                         if (isset($row->verifikasi_kualitas)) {
                             $action = '
@@ -312,6 +349,7 @@ class KomoditasController extends Controller
                     ->rawColumns([
                         'action',
                         'status_komoditas',
+                        'telah_terjual',
                         'mutu'
                     ])
                     ->make(true);
@@ -493,6 +531,13 @@ class KomoditasController extends Controller
             ]
         );
 
+        $komoditas = Komoditas::findOrFail($request->komoditas);
+        $gudang = Gudang::findOrFail($request->gudang);
+
+        if ($gudang->terisi+$komoditas->kuantitas > $gudang->kuota) {
+            return redirect()->back()->with('alert','Kuota gudang penuh');
+        }
+
         $poinWarna = AturanKualitas::where('keterangan', 'warna')->where(function($query)use($request){
             $query->where('nilai_min','<=',$request->warna)->where('nilai_max','>=',$request->warna);
         })->first();
@@ -523,7 +568,6 @@ class KomoditasController extends Controller
             $query->where('total_poin_min','<=',$totalPoin)->where('total_poin_max','>=',$totalPoin);
         })->first();
 
-        $komoditas = Komoditas::findOrFail($request->komoditas);
         try {
             DB::transaction(function () use($request,$totalPoin,$mutu, $komoditas){
                 $komoditas->status_uji_kualitas = 2;
@@ -541,21 +585,18 @@ class KomoditasController extends Controller
                 $verifikasiKualitas->save();
     
                 $gudang = Gudang::findOrFail($request->gudang);
-                if ($gudang->terisi < $gudang->kuota) {
-                    
-                    $gudang->terisi = $gudang->terisi + $komoditas->kuantitas;
-                    $gudang->save();
-        
-                    $komoditas->status_pengajuan = 3;
-                    
-                    $komoditas->harga_jual = $request->harga_jual;
-                    $komoditas->status_komoditas_di_gudang = 2;
-                    $komoditas->gudang()->associate($gudang);
+                $gudang->terisi = $gudang->terisi + $komoditas->kuantitas;
+                $gudang->save();
+    
+                $komoditas->status_pengajuan = 3;
+                
+                $komoditas->harga_jual = $request->harga_jual;
+                $komoditas->status_komoditas_di_gudang = 2;
+                $komoditas->gudang()->associate($gudang);
 
-                    $komoditas->save();
-                    $verifikasiKualitas->save();
-                    $komoditas->save();
-                }
+                $komoditas->save();
+                $verifikasiKualitas->save();
+                $komoditas->save();
             });
         } catch (\Throwable $th) {
             return redirect()->route('komoditas.index')->with('alert','Komoditas gagal diproses');
@@ -592,5 +633,26 @@ class KomoditasController extends Controller
         }
 
         return redirect()->back()->with('alert','Komoditas '.$komoditas->kategori_komoditas_detail->keterangan.' gagal diproses');
+    }
+
+    public function komoditasTerjual(Request $request, $id)
+    {
+        $komoditas = Komoditas::findOrFail($id);
+
+        if ($komoditas->kuantitas < ($komoditas->terjual+$request->terjual)) {
+            return redirect()->back()->with('alert','Kuantitas terjual melebihi kuantitas komoditas yang ada');
+        }
+
+        try {
+            $komoditas->terjual = $komoditas->terjual + $request->terjual;
+            if ($komoditas->kuantitas == ($komoditas->terjual + $request->terjual)) {
+                $komoditas->terjual = true;
+            }
+            $komoditas->save();
+
+            return redirect()->back()->with('alert','Pengurangan komoditas berhasil dilakukan');
+        } catch (\Throwable $th) {
+            return redirect()->with('alert','Pengurangan komoditas gagal');
+        }
     }
 }

@@ -23,7 +23,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>Statistik Hasil {{ucfirst($petani->nama)}}</h2>
+                        @if (isset($petani))
+                            <h2>Statistik Hasil Cabai {{ucfirst($petani->nama)}}</h2>
+                        @else
+                            <h2>Statistik Hasil Cabai Desa {{ucfirst($desa->nama_desa)}}</h2>
+                        @endif
                     </div>
                 </div>
             </div>

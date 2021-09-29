@@ -44,9 +44,12 @@ Route::get('komoditas/cetak-surat-mutu/{id}', 'KomoditasController@cetakSuratKua
 Route::get('json-komoditas', 'KomoditasController@jsonKomoditas')->name('json.komoditas');
 Route::get('json-komoditas/{id}', 'KomoditasController@getKomoditasById');
 Route::post('uji-kualitas-komoditas/{id}', 'KomoditasController@ujiKualitas')->name('komoditas.uji');
+Route::post('komoditas-terjual/{id}', 'KomoditasController@komoditasTerjual')->name('komoditas.jual');
 
-Route::get('statistik', 'GuestController@indexStatistik')->name('statistik.index');
-Route::post('statistik', 'GuestController@showStatistik')->name('statistik.show');
+Route::get('statistik-petani', 'GuestController@indexStatistik')->name('statistik.index');
+Route::post('statistik-petani', 'GuestController@showStatistik')->name('statistik.show');
+Route::get('statistik-desa', 'GuestController@indexStatistikDesa')->name('statistik-desa.index');
+Route::post('statistik-desa', 'GuestController@showStatistikDesa')->name('statistik-desa.show');
 
 Route::resource('petani', UserInfoController::class);
 Route::get('json-petani', 'UserInfoController@jsonPetani')->name('json.petani');

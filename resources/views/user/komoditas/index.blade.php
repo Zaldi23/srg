@@ -44,6 +44,7 @@
                                                 <th>No</th>
                                                 <th>Jenis Cabai</th>
                                                 <th>Kuantitas (Kg)</th>
+                                                <th>Detail Kuantitas (Kg)</th>
                                                 <th>Harga harapan minimal/Kg (Rp)</th>
                                                 <th>Harga harapan maksimal/Kg (Rp)</th>
                                                 <th>Status Pengajuan</th>
@@ -91,6 +92,46 @@
                         </div>
                     </div>
                     {{-- End Modal Hapus --}}
+
+                    {{-- Modal Terjual --}}
+                    <div class="modal fade" id="modalJual" tabindex="-1" role="dialog" aria-labelledby="modalJual" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <form action="#" method="POST" id="form-jual">
+                                    @csrf
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Komoditas</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <p id="keterangan_komoditas"></p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="terjual">Terjual</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="number" id="max_terjual" name="terjual" placeholder="Terjual">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">/Kg</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer" id="action_row">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary" type="submit">Buat</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- End Modal Terjual --}}
                     @break
                 @case(2)
                     <div class="container-fluid">
@@ -295,6 +336,7 @@
                                                     <th>Nama Tani</th>
                                                     <th>Jenis Cabai</th>
                                                     <th>Kuantitas (Kg)</th>
+                                                    <th>Kuantitas Detail(Kg)</th>
                                                     <th>Harga Jual (Kg)</th>
                                                     <th>Status</th>
                                                     <th>Mutu</th>
@@ -375,7 +417,8 @@
                         columns: [
                             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false},
                             {data: 'kategori_komoditas_detail.keterangan', name: 'kategori_komoditas_detail.keterangan'},
-                            {data: 'kuantitas', name: 'kuantitas'},
+                            {data: 'kuantitas_tersisa', name: 'kuantitas_tersisa'},
+                            {data: 'telah_terjual', name: 'telah_terjual'},
                             {data: 'harga_minimal', name: 'harga_minimal'},
                             {data: 'harga_maksimal', name: 'harga_maksimal'},
                             {data: 'status_pengajuan', name: 'status_pengajuan', orderable: false, searchable: false},
@@ -400,6 +443,31 @@
                                 $('#kategori').text("Apakah anda yakin menghapus "+response.kategori_komoditas_detail.keterangan+" dengan kuantitas "+response.kuantitas+" Kilogram");
                                 $('#kuantitas').text(response.kuantitas+" Kg");
                                 $('#modalAdd').modal('show');
+                            },
+                            error: function(response){
+                                console.log('Error : '+response);
+                            }
+                        });
+                    });
+
+                    $('body').on('click', '.jual', function(){
+                        var id = this.id;
+                        var url = "{{route('komoditas.jual', '')}}"+"/"+id;
+                        $('#form-jual').attr('action', url);
+                        $('#form-jual').trigger('reset');
+                        $('#action_row').show();
+
+                        $.ajax({
+                            url: "{{ url('json-komoditas') }}/"+id,
+                            type: "GET",
+                            success: function(response){
+                                $('#keterangan_komoditas').text("Komoditas "+response.kategori_komoditas_detail.keterangan+" dengan kuantitas "+response.kuantitas+" Kilogram telah terjual");
+                                $('#kuantitas').text(response.kuantitas+" Kg");
+                                $('#max_terjual').attr({
+                                    "max" : response.kuantitas,
+                                    "min" : 1
+                                });
+                                $('#modalJual').modal('show');
                             },
                             error: function(response){
                                 console.log('Error : '+response);
@@ -454,7 +522,8 @@
                             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false},
                             {data: 'user_info.nama', name: 'user_info.nama'},
                             {data: 'kategori_komoditas_detail.keterangan', name: 'kategori_komoditas_detail.keterangan'},
-                            {data: 'kuantitas', name: 'kuantitas'},
+                            {data: 'kuantitas_tersisa', name: 'kuantitas_tersisa'},
+                            {data: 'telah_terjual', name: 'telah_terjual'},
                             {data: 'harga_jual', name: 'harga_jual'},
                             {data: 'status_komoditas', name: 'status_komoditas'},
                             {data: 'mutu', name: 'mutu'},

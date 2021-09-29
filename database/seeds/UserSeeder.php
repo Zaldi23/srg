@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
             'username' => 'desamirit',
             'email' => 'desamirit@gmail.com',
             'password' => 'janganlupa',
-            'nomor_hp' => '687727757986',
+            'nomor_hp' => '6287727757986',
             'role' => 3,
         ],
         [
@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'username' => 'desarowo',
             'email' => 'desarowo@gmail.com',
             'password' => 'janganlupa',
-            'nomor_hp' => '085159861101',
+            'nomor_hp' => '6285159861101',
             'role' => 3,
         ],
         [
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'username' => 'lpk',
             'email' => 'lpk@gmail.com',
             'password' => 'janganlupa',
-            'nomor_hp' => '685159861101',
+            'nomor_hp' => '6285159861101',
             'role' => 2,
         ],
         [
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             'username' => 'irfan',
             'email' => 'irfan@gmail.com',
             'password' => 'janganlupa',
-            'nomor_hp' => '685159861101',
+            'nomor_hp' => '6285159861101',
             'role' => 1,
         ],
         [
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
             'username' => 'agus',
             'email' => 'agus@gmail.com',
             'password' => 'janganlupa',
-            'nomor_hp' => '685159861101',
+            'nomor_hp' => '6285159861101',
             'role' => 1,
         ],
     ];
