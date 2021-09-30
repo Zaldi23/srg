@@ -99,7 +99,7 @@
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-4 col-6">
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-4 col-6">
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
@@ -129,7 +129,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-4 col-6">
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
@@ -143,7 +143,7 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-4 col-6">
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
@@ -199,7 +199,7 @@
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
                         <!-- ./col -->
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-4 col-6">
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
