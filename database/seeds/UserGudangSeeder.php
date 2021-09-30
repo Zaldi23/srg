@@ -12,6 +12,10 @@ class UserGudangSeeder extends Seeder
             'desa' => 'Mirit',
             'user' => 'desamirit',
         ],
+        [
+            'desa' => 'Rowo',
+            'user' => 'desarowo',
+        ],
     ];
 
     public function run()
