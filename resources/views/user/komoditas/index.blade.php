@@ -19,7 +19,7 @@
                             </nav>
                         </div>
                         <div class="col-lg-6 col-5 text-right">
-                            @if (isset(Auth::user()->user_info->luas_lahan, Auth::user()->user_info->kelompok_tani_id))
+                            @if (isset(Auth::user()->user_info->luas_lahan, Auth::user()->user_info->kelompok_tani_id, Auth::user()->nomor_hp))
                                 <a href="{{route('komoditas.create')}}" class="btn btn-sm btn-success">+ Tambah Komoditas</a>
                             @else
                                 <a href="{{route('petani.detail')}}" class="btn btn-sm btn-info">+ Lengkapi data</a>

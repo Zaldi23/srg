@@ -18,7 +18,7 @@
                         <!-- /.card-header -->
 
                         <!-- form start -->
-                        @if (isset($petani->luas_lahan, $petani->kelompok_tani_id))
+                        @if (isset($petani->luas_lahan, $petani->kelompok_tani_id, $petani->nomor_hp))
                             <form id="quickForm" method="POST" action="{{route('petani.update',$petani->id)}}">
                                 @method('PUT')
                                 @csrf
